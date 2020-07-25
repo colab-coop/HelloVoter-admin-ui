@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  staging_admin:
+  staging:
     docker:
       - image: circleci/python:3.6
     steps:
@@ -36,7 +36,7 @@ jobs:
             . env/bin/activate
             cd ~/operations/ansible/admin
             ansible-playbook -i hosts deploy.yml --limit staging_v1 --vault-password-file ~/operations/ansible/admin/.vault-pass
-  production_admin:
+  production:
     docker:
       - image: circleci/python:3.6
     steps:
@@ -76,11 +76,11 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - staging_admin:
+      - staging:
           filters:
             branches:
               only: ambassador-stage
-      - production_admin:
+      - production:
           filters:
             branches:
               only: ambassador
