@@ -27,11 +27,14 @@ class Payout extends Component {
     const { global } = this.state;
     try {
       // send token to server
-      await _fetch(global, '/payout/account/token/exchange', 'POST', {
+      await _fetch(global, '/payouts/account?stripe=true', 'POST', {
         token,
         account_id: metadata.account.id,
       });
       notify_success('Linked account');
+
+      // get payouts from server
+      let payoutsList = await _fetch(global, '/ambassadors/current/payouts', 'GET');
     } catch (e) {
       notify_error(e, 'Unable to link account.');
     }
@@ -45,7 +48,7 @@ class Payout extends Component {
         <CssBaseline />
         <Paper className={classes.paper}>
           <PlaidLink
-            clientName="HelloVoter"
+            clientName="Energize Voters"
             env="sandbox"
             product={['auth']}
             publicKey="5b621e7055950cc12bf86303026a6a"
