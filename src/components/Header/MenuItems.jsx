@@ -53,6 +53,14 @@ const MenuItems = ({ assignments, handleClickLogout, experimental }) => (
         </ListItem>
       </Link>
     </List>
+    <Divider />
+    <List>
+      <Link to={'/csvs/'}>
+        <ListItem button>
+          <ListItemText primary="CSVs" />
+        </ListItem>
+      </Link>
+    </List>
   </Fragment>
 );
 
