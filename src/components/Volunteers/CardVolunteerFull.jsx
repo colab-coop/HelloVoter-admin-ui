@@ -24,7 +24,8 @@ const NEARBY_DIST = 50;
 export const CardVolunteerFull = props => (
   <div>
     <br />
-    {props.volunteer.first_name}
+    <br />
+    Currently Approved: {props.volunteer.approved ? "Yes" : "No"}
     <div>
       <Button
         onClick={() => props.refer._approveAmbassador(props.volunteer, false)}>
@@ -35,7 +36,16 @@ export const CardVolunteerFull = props => (
       </Button>
     </div>
     <br />
-    Approved: {props.volunteer.approved ? "Yes" : "No"}
+    <br />
+    Currently Admin: {props.volunteer.admin ? "Yes" : "No"}
+    <div>
+      <Button
+        onClick={() => props.refer._adminizeAmbassador(props.volunteer)}>
+        Make Admin
+      </Button>
+    </div>
+    <br />
+    <br />
     <br />
     Email: {props.volunteer.email ? props.volunteer.email : 'N/A'}
     <br />
