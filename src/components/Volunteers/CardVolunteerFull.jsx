@@ -53,6 +53,17 @@ export const CardVolunteerFull = props => (
     <br />
     Address:
     <VolunteerAddress global={global} refer={props.refer} volunteer={props.volunteer} />
+
+    <br />
+      {
+        props.volunteer.verification ?
+        props.volunteer.verification.map((v)=> {
+          return <div key={v.source}><b>source:</b> {v.source} <b>name:</b> {v.name}<br /><br /></div>
+        }) :
+        <div>no phone lookup</div>
+      }
+    <br />
+
     <br />
       {
         props.volunteer.quiz_results ?
