@@ -111,7 +111,7 @@ class Login extends Component {
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in to Voter Ambassador Admin
+            Sign in to Voting Ambassador Admin
           </Typography>
           <form className={classes.form} onSubmit={(e) => { e.preventDefault(); global.doSave(e, this.state.target); }} >
            <center>

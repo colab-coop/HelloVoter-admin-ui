@@ -63,7 +63,7 @@ export default class Header extends Component {
             noWrap
             className={classes.title}
           >
-            <div style={{ margin: 10 }}>Voter Ambassador {orgname ? (
+            <div style={{ margin: 10 }}>Voting Ambassador {orgname ? (
               orgname
             ) : (
               <CircularProgress height={15} />

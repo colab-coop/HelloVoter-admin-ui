@@ -265,6 +265,25 @@ export class CardVolunteer extends Component {
     this._loadData();
   };
 
+  _adminizeAmbassador = async (volunteer) => {
+    const { global } = this.state;
+
+    this.props.refer.setState({ saving: true });
+    try {
+      await _fetch(
+        global,
+        `/ambassadors/${volunteer.id}/admin`,
+        'PUT'
+      );
+      notify_success('Ambassador has been made an admin');
+    } catch (e) {
+      notify_error(e, 'Ambassador has NOT been made an admin successfully.');
+    }
+    this.props.refer.setState({ saving: false });
+
+    this._loadData();
+  };
+
   render() {
     const { global, volunteer } = this.state;
 

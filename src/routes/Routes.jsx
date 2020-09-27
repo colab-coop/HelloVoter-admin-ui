@@ -14,7 +14,8 @@ import {
   Settings,
   Login,
   About,
-  Payout
+  Payout,
+  CSVs
 } from '../components';
 import NoMatch from './NoMatch';
 
@@ -42,6 +43,7 @@ export const Routes = ({ global, experimental }) => (
     <Route path="/settings/" render={() => <Settings global={global} />} />
     <Route path="/about/" render={() => <About global={global} />} />
     <Route path="/payout/" render={() => <Payout global={global} />} />
+    <Route path="/csvs/" render={() => <CSVs global={global} />} />
     <Route component={NoMatch} />
   </Switch>
 );
