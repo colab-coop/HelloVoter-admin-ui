@@ -63,13 +63,11 @@ const MenuItems = ({ assignments, handleClickLogout, experimental }) => (
         </ListItem>
       </Link>
     </List>
+    <Divider />
     <List>
-      <Link to={'/payout/'}>
+      <Link to={'/csvs/'}>
         <ListItem button>
-          <ListItemIcon>
-            <AccountBalanceIcon />
-          </ListItemIcon>
-          <ListItemText primary="Payments" />
+          <ListItemText primary="CSVs" />
         </ListItem>
       </Link>
     </List>

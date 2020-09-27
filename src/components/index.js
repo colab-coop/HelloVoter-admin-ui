@@ -11,6 +11,7 @@ import Login from './Login';
 import LogoutDialog from './LogoutDialog';
 import Map from './Map';
 import Payout from './Payout';
+import CSVs from './CSVs';
 import Settings from './Settings';
 import { Turf } from './Turf'
 import { Volunteers } from './Volunteers';
@@ -31,6 +32,7 @@ export {
   LogoutDialog,
   Map,
   Payout,
+  CSVs,
   Settings,
   Turf,
   Volunteers,

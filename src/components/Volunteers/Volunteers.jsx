@@ -29,7 +29,7 @@ export default class App extends Component {
     super(props);
 
     let perPage = localStorage.getItem('volunteersperpage');
-    if (!perPage) perPage = 5;
+    if (!perPage) perPage = process.env.REACT_APP_AMBASSADORS_PER_PAGE;
 
     this.state = {
       global: props.global,
@@ -94,8 +94,7 @@ export default class App extends Component {
         denied.push(c);
       } else if (c.invited) invited.push(c);
       else if (c.approved) ready.push(c);
-      else if (c.signup_completed) unassigned.push(c);
-      else incomplete.push(c);
+      else unassigned.push(c);
     });
 
     return (

@@ -24,8 +24,8 @@ const NEARBY_DIST = 50;
 export const CardVolunteerFull = props => (
   <div>
     <br />
-    {props.volunteer.first_name}
-    {props.volunteer.signup_completed ?
+    <br />
+    Currently Approved: {props.volunteer.approved ? "Yes" : "No"}
     <div>
       <Button
         onClick={() => props.refer._approveAmbassador(props.volunteer, false)}>
@@ -35,11 +35,17 @@ export const CardVolunteerFull = props => (
         Approve
       </Button>
     </div>
-        :
-    <b> - This ambassador has not completed signup form</b>
-    }
     <br />
-    Approved: {props.volunteer.approved ? "Yes" : "No"}
+    <br />
+    Currently Admin: {props.volunteer.admin ? "Yes" : "No"}
+    <div>
+      <Button
+        onClick={() => props.refer._adminizeAmbassador(props.volunteer)}>
+        Make Admin
+      </Button>
+    </div>
+    <br />
+    <br />
     <br />
     Email: {props.volunteer.email ? props.volunteer.email : 'N/A'}
     <br />
@@ -47,6 +53,17 @@ export const CardVolunteerFull = props => (
     <br />
     Address:
     <VolunteerAddress global={global} refer={props.refer} volunteer={props.volunteer} />
+
+    <br />
+      {
+        props.volunteer.verification ?
+        props.volunteer.verification.map((v)=> {
+          return <div key={v.source}><b>source:</b> {v.source} <b>name:</b> {v.name}<br /><br /></div>
+        }) :
+        <div>no phone lookup</div>
+      }
+    <br />
+
     <br />
       {
         props.volunteer.quiz_results ?
