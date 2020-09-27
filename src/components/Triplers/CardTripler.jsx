@@ -70,92 +70,6 @@ export class CardTripler extends Component {
     ReactTooltip.rebuild();
   }
 
-  handleFormsChange = async selectedFormsOption => {
-    const { global } = this.state;
-
-    if (!selectedFormsOption) selectedFormsOption = [];
-    this.props.refer.setState({ saving: true });
-    try {
-      let obj = _handleSelectChange(
-        this.state.selectedFormsOption,
-        selectedFormsOption
-      );
-
-      let adrm = [];
-
-      obj.add.forEach(add => {
-        adrm.push(_fetch(
-          global,
-          '/form/assigned/tripler/add',
-          'POST',
-          { formId: add, vId: this.props.id }
-        ));
-      })
-
-      obj.rm.forEach(rm => {
-        adrm.push(_fetch(
-          global,
-          '/form/assigned/tripler/remove',
-          'POST',
-          { formId: rm, vId: this.props.id }
-        ));
-      });
-
-      await Promise.all(adrm);
-
-      // refresh tripler info
-      let tripler = await _loadTripler(global, this.props.id);
-      notify_success('Form selection saved.');
-      this.setState({ selectedFormsOption, tripler });
-    } catch (e) {
-      notify_error(e, 'Unable to add/remove form.');
-    }
-    this.props.refer.setState({ saving: false });
-  };
-
-  handleTurfChange = async selectedTurfOption => {
-    const { global } = this.state;
-
-    if (!selectedTurfOption) selectedTurfOption = [];
-    this.props.refer.setState({ saving: true });
-    try {
-      let obj = _handleSelectChange(
-        this.state.selectedTurfOption,
-        selectedTurfOption
-      );
-
-      let adrm = [];
-
-      obj.add.forEach(add => {
-        adrm.push(_fetch(
-          global,
-          '/turf/assigned/tripler/add',
-          'POST',
-          { turfId: add, vId: this.props.id }
-        ));
-      })
-
-      obj.rm.forEach(rm => {
-        adrm.push(_fetch(
-          global,
-          '/turf/assigned/tripler/remove',
-          'POST',
-          { turfId: rm, vId: this.props.id }
-        ));
-      })
-
-      await Promise.all(adrm);
-
-      // refresh tripler info
-      let tripler = await _loadTripler(global, this.props.id);
-      notify_success('Turf selection saved.');
-      this.setState({ selectedTurfOption, tripler });
-    } catch (e) {
-      notify_error(e, 'Unable to add/remove turf.');
-    }
-    this.props.refer.setState({ saving: false });
-  };
-
   _loadData = async () => {
     const { global } = this.state;
 
@@ -244,27 +158,6 @@ export class CardTripler extends Component {
     });
   };
 
-  _approveTripler = async (tripler, flag) => {
-    const { global } = this.state;
-
-    let term = flag ? 'approved' : 'denied';
-
-    this.props.refer.setState({ saving: true });
-    try {
-      await _fetch(
-        global,
-        `/triplers/${tripler.id}/${flag ? 'approve' : 'disapprove'}`,
-        'PUT'
-      );
-      notify_success('Tripler has been ' + term);
-    } catch (e) {
-      notify_error(e, 'Tripler has NOT been ' + term + ' successfully.');
-    }
-    this.props.refer.setState({ saving: false });
-
-    this._loadData();
-  };
-
   render() {
     const { global, tripler } = this.state;
 
@@ -306,7 +199,7 @@ export class CardTripler extends Component {
         <ListItemText
           primary={`${tripler.first_name} ${tripler.last_name || ''}`}
           secondary={
-                `${tripler.address.address1} ${tripler.address.city} ${tripler.address.state} ${tripler.address.zip}`
+                `${tripler.address.address1} ${tripler.address.city} ${tripler.address.state} ${tripler.address.zip} \n ${tripler.phone}`
           }
         />
         <TriplerBadges tripler={tripler} />
@@ -318,56 +211,6 @@ export class CardTripler extends Component {
 const TriplerBadges = props => {
   let badges = [];
   let id = props.tripler.id;
-
-  /*
-  if (props.tripler.admin)
-    badges.push(
-      <Icon
-        icon={faCrown}
-        color="gold"
-        key={id + 'admin'}
-        data-tip="Administrator"
-      />
-    );
-  if (props.tripler.locked)
-    badges.push(
-      <Icon
-        icon={faBan}
-        color="red"
-        key={id + 'locked'}
-        data-tip="Denied access"
-      />
-    );
-  else {
-    if (props.tripler.ass && props.tripler.ass.ready)
-      badges.push(
-        <Icon
-          icon={faCheckCircle}
-          color="green"
-          key={id + 'ready'}
-          data-tip="Ready to Canvass"
-        />
-      );
-    else
-      badges.push(
-        <Icon
-          icon={faExclamationTriangle}
-          color="red"
-          key={id + 'notready'}
-          data-tip="Not ready to volunteer, check assignments"
-        />
-      );
-    if (!props.tripler.locationstr)
-      badges.push(
-        <Icon
-          icon={faHome}
-          color="red"
-          key={id + 'addr'}
-          data-tip="Home Address is not set"
-        />
-      );
-  }
-  */
 
   return badges;
 };

@@ -223,13 +223,13 @@ export async function _loadVolunteers(global, byType, id) {
   return volunteers;
 }
 
-export async function _loadTriplers(global, byType, id) {
+export async function _loadTriplers(global, firstName, lastName) {
   let triplers = [];
 
   try {
     let call = 'triplers';
 
-    triplers = await _fetch(global, '/' + call);
+    triplers = await _fetch(global, '/' + call + '?firstName=' + firstName + '&lastName=' + lastName);
   } catch (e) {
     notify_error(e, 'Unable to load triplers data.');
   }

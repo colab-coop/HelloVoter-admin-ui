@@ -36,12 +36,14 @@ export default class App extends Component {
       loading: true,
       thisTripler: {},
       triplers: [],
-      search: '',
+      firstName: '',
+      lastName: '',
       perPage: perPage,
       pageNum: 1
     };
 
-    this.onTypeSearch = this.onTypeSearch.bind(this);
+    this.onTypeFirstName = this.onTypeFirstName.bind(this);
+    this.onTypeLastName = this.onTypeLastName.bind(this);
     this.handlePageNumChange = this.handlePageNumChange.bind(this);
   }
 
@@ -54,10 +56,22 @@ export default class App extends Component {
     this.setState({ pageNum: 1, perPage: obj.value });
   }
 
-  onTypeSearch(event) {
+  onTypeFirstName(event) {
     this.setState({
-      search: event.target.value.toLowerCase(),
-      pageNum: 1
+      firstName: event.target.value
+    });
+  }
+
+  onTypeLastName(event) {
+    this.setState({
+      lastName: event.target.value
+    });
+  }
+
+  submitSearch = async (event) => {
+    let triplers = await _loadTriplers(this.state.global, this.state.firstName, this.state.lastName);
+    this.setState({
+      triplers: triplers
     });
   }
 
@@ -65,13 +79,7 @@ export default class App extends Component {
     const { global } = this.state;
 
     let triplers = [];
-    this.setState({ loading: true, search: '' });
-    try {
-      triplers = await _loadTriplers(global);
-    } catch (e) {
-      notify_error(e, 'Unable to load triplers.');
-    }
-    this.setState({ loading: false, triplers });
+    this.setState({ loading: false, firstName: '', lastName: '' });
   };
 
   handlePageClick = data => {
@@ -87,139 +95,36 @@ export default class App extends Component {
     let denied = [];
     let invited = [];
 
-    this.state.triplers.forEach(c => {
-      if (this.state.search && !_searchStringify(c).includes(this.state.search))
-        return;
-      if (c.locked) {
-        denied.push(c);
-      } else if (c.invited) invited.push(c);
-      else if (c.approved) ready.push(c);
-      else if (c.signup_completed) unassigned.push(c);
-      else incomplete.push(c);
-    });
-
     return (
       <RootLoader flag={this.state.loading} func={() => this._loadData()}>
         <Router>
           <div>
-            Search:{' '}
+            <br />
             <input
               type="text"
-              value={this.state.value}
-              onChange={this.onTypeSearch}
-              data-tip="Search by name, email, location, or admin"
+              value={this.state.first_name}
+              onChange={this.onTypeFirstName}
+              placeholder="first name"
+              data-tip="first name"
             />
             <br />
-            <Link
-              to={'/triplers/'}
-              onClick={() => this.setState({ pageNum: 1 })}
-            >
-              Approved ({ready.length})
-            </Link>
-            &nbsp;-&nbsp;
-            <Link
-              to={'/triplers/unassigned'}
-              onClick={() => this.setState({ pageNum: 1 })}
-            >
-              Pending ({unassigned.length})
-            </Link>
-            &nbsp;-&nbsp;
-            <Link
-              to={'/triplers/denied'}
-              onClick={() => this.setState({ pageNum: 1 })}
-            >
-              Denied ({denied.length})
-            </Link>
+            <br />
+            <input
+              type="text"
+              value={this.state.last_name}
+              onChange={this.onTypeLastName}
+              placeholder="last name"
+              data-tip="last name"
+            />
+            <br />
+            <br />
+            <Button onClick={this.submitSearch}>search</Button>
+            <br />
+            <br />
             <Route
               exact={true}
               path="/triplers/"
-              render={() => <ListTriplers global={global} refer={this} triplers={ready} />}
-            />
-            <Route
-              exact={true}
-              path="/triplers/unassigned"
-              render={() => (
-                <ListTriplers
-                  global={global}
-                  refer={this}
-                  type="Unassigned"
-                  triplers={unassigned}
-                />
-              )}
-            />
-            <Route
-              exact={true}
-              path="/triplers/invited"
-              render={() => (
-                <div>
-                  <ListTriplers
-                    global={global}
-                    refer={this}
-                    type="Invited"
-                    triplers={invited}
-                  />
-                  <Button onClick={async () => {
-                    let obj = await _fetch(
-                      global,
-                      '/tripler/invite',
-                      'POST'
-                    );
-                    if (obj.token) {
-                      this.setState({ thisTripler: {id: 'invite:'+obj.token} });
-                    } else {
-                      notify_error({}, 'Invite failed.');
-                    }
-                  }} color="primary">
-                    Invite Someone
-                  </Button>
-                </div>
-              )}
-            />
-            <Route
-              exact={true}
-              path="/triplers/incomplete"
-              render={() => (
-                <ListTriplers
-                  global={global}
-                  refer={this}
-                  type="Incomplete"
-                  triplers={incomplete}
-                />
-              )}
-            />
-            <Route
-              exact={true}
-              path="/triplers/denied"
-              render={() => (
-                <ListTriplers
-                  global={global}
-                  refer={this}
-                  type="Denied"
-                  triplers={denied}
-                />
-              )}
-            />
-            <Route
-              path="/triplers/view/:id"
-              render={props => (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 100,
-                  left: 200,
-                  right: 200,
-                  backgroundColor: 'white',
-                  padding: 40
-                }}
-              >
-              <CardTripler
-                global={global}
-                key={props.match.params.id}
-                id={props.match.params.id}
-                edit={true}
-                refer={this}
-              />
-              </div>)}
+              render={() => <ListTriplers global={global} refer={this} triplers={this.state.triplers} />}
             />
             <DialogSaving flag={this.state.saving} />
           </div>
