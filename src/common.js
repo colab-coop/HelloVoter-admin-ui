@@ -180,6 +180,21 @@ export async function _loadQRCodes(global, id) {
   return qrcodes;
 }
 
+export async function _loadTripler(global, id) {
+  let tripler = {};
+  try {
+    tripler = await _fetch(
+      global,
+      '/triplers/' + id
+    );
+  } catch (e) {
+    notify_error(e, 'Unable to load tripler info.');
+  }
+  if (!tripler.ass) tripler.ass = {forms:[],turfs:[]};
+  return tripler;
+}
+
+
 export async function _loadVolunteer(global, id) {
   let volunteer = {};
   try {
@@ -208,6 +223,19 @@ export async function _loadVolunteers(global, byType, id) {
   return volunteers;
 }
 
+export async function _loadTriplers(global, byType, id) {
+  let triplers = [];
+
+  try {
+    let call = 'triplers';
+
+    triplers = await _fetch(global, '/' + call);
+  } catch (e) {
+    notify_error(e, 'Unable to load triplers data.');
+  }
+
+  return triplers;
+}
 
 export async function _loadTurf(global, id) {
   let turf = {};

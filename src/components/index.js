@@ -12,8 +12,9 @@ import LogoutDialog from './LogoutDialog';
 import Map from './Map';
 import Payout from './Payout';
 import Settings from './Settings';
-import { Turf } from './Turf';
+import { Turf } from './Turf'
 import { Volunteers } from './Volunteers';
+import { Triplers } from './Triplers';
 import { Header, Sidebar } from './Header';
 
 export {
@@ -33,6 +34,7 @@ export {
   Settings,
   Turf,
   Volunteers,
+  Triplers,
   Header,
   Sidebar,
 };

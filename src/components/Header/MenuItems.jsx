@@ -29,7 +29,17 @@ const MenuItems = ({ assignments, handleClickLogout, experimental }) => (
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+          <ListItemText primary="Ambassadors" />
+        </ListItem>
+      </Link>
+    </List>
+    <List>
+      <Link to={'/triplers'}>
+        <ListItem button>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Triplers" />
         </ListItem>
       </Link>
     </List>
