@@ -21,29 +21,36 @@ class Payout extends Component {
   }
 
   handleClick = async (el) => {
+    let path = el.currentTarget.dataset.path;
+
     const { global } = this.state;
     const { server, token } = global.state;
+
     let https = true;
-    let exportId = el.currentTarget.dataset.csvid;
 
     if (server.match(/:8080$/)) https = false;
-
     try {
-      let res = await fetch('http'+(https?'s':'')+'://' + server + '/HelloVoterHQ' + (global.state.orgId?'/'+global.state.orgId:'') + '/api/v1/csv-export/' + exportId, {
+      let res = await fetch('http'+(https?'s':'')+'://' + server + '/HelloVoterHQ' + (global.state.orgId?'/'+global.state.orgId:'') + '/api/v1/' + path, {
         method: 'GET',
           headers: {
             Authorization: 'Bearer ' + token
           }
         });
+      let file = await res.text();
 
-      let csv = await res.text();
       let hiddenElement = document.createElement('a');
-      hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-      hiddenElement.target = '_blank';
-      hiddenElement.download = exportId + '.csv';
+      if (path.indexOf('csv') !== -1) {
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(file);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = path.split('/')[1] + '.csv';
+      } else {
+        hiddenElement.href = 'data:text/json;charset=utf-8,' + encodeURI(file);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = path.split('/')[1] + '.json';
+      }
       hiddenElement.click();
     } catch (e) {
-      notify_error(e, 'Unable to get CSV export.');
+      notify_error(e, 'Unable to get export.');
     }
   };
 
@@ -53,10 +60,16 @@ class Payout extends Component {
     return (
       <main className={classes.main}>
         <CssBaseline />
-        <button data-csvid="ambassadors" onClick={this.handleClick}>Ambassador CSV download</button>
+        <button data-path="json-export/ambassadors" onClick={this.handleClick}>Ambassador JSON download</button>
         <br />
         <br />
-        <button data-csvid="triplers" onClick={this.handleClick}>Tripler CSV download</button>
+        <button data-path="json-export/triplers" onClick={this.handleClick}>Tripler JSON download</button>
+        <br />
+        <br />
+        <button data-path="csv-export/ambassadors" onClick={this.handleClick}>Ambassador CSV download</button>
+        <br />
+        <br />
+        <button data-path="csv-export/triplers" onClick={this.handleClick}>Tripler CSV download</button>
         <br />
         <br />
         <br />
