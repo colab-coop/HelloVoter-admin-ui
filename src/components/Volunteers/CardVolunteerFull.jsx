@@ -57,9 +57,7 @@ export const CardVolunteerFull = props => (
     <br />
       {
         props.volunteer.verification ?
-        props.volunteer.verification.map((v)=> {
-          return <div key={v.source}><b>source:</b> {v.source} <b>name:</b> {v.name}<br /><br /></div>
-        }) :
+        <div>{JSON.stringify(props.volunteer.verification, null, 2)}</div> :
         <div>no phone lookup</div>
       }
     <br />
