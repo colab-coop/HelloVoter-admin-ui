@@ -35,7 +35,8 @@ jobs:
           command: |
             . env/bin/activate
             cd ~/operations/ansible/admin
-            ansible-playbook -i hosts deploy.yml --limit staging_v1 --vault-password-file ~/operations/ansible/admin/.vault-pass --extra-vars "deploy_branch=$CIRCLE_BRANCH"
+            ansible-playbook -i staging deploy.yml --limit staging_wh1_v1 --vault-password-file ~/operations/ansible/ui/.vault-pass --extra-vars "deploy_branch=$CIRCLE_BRANCH"
+            ansible-playbook -i staging deploy.yml --limit staging_wh2_v1 --vault-password-file ~/operations/ansible/ui/.vault-pass --extra-vars "deploy_branch=$CIRCLE_BRANCH"
   production:
     docker:
       - image: circleci/python:3.6
@@ -71,7 +72,8 @@ jobs:
           command: |
             . env/bin/activate
             cd ~/operations/ansible/admin
-            ansible-playbook -i hosts deploy.yml --limit production_v1 --vault-password-file ~/operations/ansible/admin/.vault-pass --extra-vars "deploy_branch=$CIRCLE_BRANCH"
+            ansible-playbook -i production deploy.yml --limit production_wh1_v1 --vault-password-file ~/operations/ansible/ui/.vault-pass --extra-vars "deploy_branch=$CIRCLE_BRANCH"
+            ansible-playbook -i production deploy.yml --limit production_wh2_v1 --vault-password-file ~/operations/ansible/ui/.vault-pass --extra-vars "deploy_branch=$CIRCLE_BRANCH"
 workflows:
   version: 2
   build-and-deploy:
