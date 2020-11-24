@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
-import ReactPaginate from 'react-paginate';
-import Select from 'react-select';
-
-import Modal from '@material-ui/core/Modal';
-import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button';
+import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
+import MaterialTable from 'material-table'
+import {HashRouter as Router, Route, Link} from 'react-router-dom'
+import ReactPaginate from 'react-paginate'
+import Select from 'react-select'
+import Modal from '@material-ui/core/Modal'
+import List from '@material-ui/core/List'
+import Button from '@material-ui/core/Button'
 
 import {
   notify_error,
@@ -16,20 +16,20 @@ import {
   RootLoader,
   DialogSaving,
   InviteSomeone,
-} from '../../common.js';
+} from '../../common.js'
 
-import { CardVolunteer } from './CardVolunteer'
+import {CardVolunteer} from './CardVolunteer'
 
-import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en';
-TimeAgo.locale(en);
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+TimeAgo.locale(en)
 
 export default class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    let perPage = localStorage.getItem('volunteersperpage');
-    if (!perPage) perPage = process.env.REACT_APP_AMBASSADORS_PER_PAGE;
+    let perPage = localStorage.getItem('volunteersperpage')
+    if (!perPage) perPage = process.env.REACT_APP_AMBASSADORS_PER_PAGE
 
     this.state = {
       global: props.global,
@@ -38,64 +38,63 @@ export default class App extends Component {
       volunteers: [],
       search: '',
       perPage: perPage,
-      pageNum: 1
-    };
+      pageNum: 1,
+    }
 
-    this.onTypeSearch = this.onTypeSearch.bind(this);
-    this.handlePageNumChange = this.handlePageNumChange.bind(this);
+    this.onTypeSearch = this.onTypeSearch.bind(this)
+    this.handlePageNumChange = this.handlePageNumChange.bind(this)
   }
 
   componentDidMount() {
-    this._loadData();
+    this._loadData()
   }
 
   handlePageNumChange(obj) {
-    localStorage.setItem('volunteersperpage', obj.value);
-    this.setState({ pageNum: 1, perPage: obj.value });
+    localStorage.setItem('volunteersperpage', obj.value)
+    this.setState({pageNum: 1, perPage: obj.value})
   }
 
   onTypeSearch(event) {
     this.setState({
       search: event.target.value.toLowerCase(),
-      pageNum: 1
-    });
+      pageNum: 1,
+    })
   }
 
   _loadData = async () => {
-    const { global } = this.state;
+    const {global} = this.state
 
-    let volunteers = [];
-    this.setState({ loading: true, search: '' });
+    let volunteers = []
+    this.setState({loading: true, search: ''})
     try {
-      volunteers = await _loadVolunteers(global);
+      volunteers = await _loadVolunteers(global)
     } catch (e) {
-      notify_error(e, 'Unable to load volunteers.');
+      notify_error(e, 'Unable to load volunteers.')
     }
-    this.setState({ loading: false, volunteers });
-  };
+    this.setState({loading: false, volunteers})
+  }
 
-  handlePageClick = data => {
-    this.setState({ pageNum: data.selected + 1 });
-  };
+  handlePageClick = (data) => {
+    this.setState({pageNum: data.selected + 1})
+  }
 
   render() {
-    const { global } = this.state;
+    const {global} = this.state
 
-    let ready = [];
-    let unassigned = [];
-    let incomplete = [];
-    let denied = [];
-    let invited = [];
+    let ready = []
+    let unassigned = []
+    let incomplete = []
+    let denied = []
+    let invited = []
 
-    this.state.volunteers.forEach(c => {
-      if (this.state.search && !_searchStringify(c).includes(this.state.search))
-        return;
+    this.state.volunteers.forEach((c) => {
+      if (this.state.search && !_searchStringify(c).includes(this.state.search)) return
       if (c.locked) {
-        denied.push(c);
-      } else if (c.invited) invited.push(c);
-      else if (c.approved) ready.push(c);
-      else unassigned.push(c);
-    });
+        denied.push(c)
+      } else if (c.invited) invited.push(c)
+      else if (c.approved) ready.push(c)
+      else unassigned.push(c)
+    })
 
     return (
       <RootLoader flag={this.state.loading} func={() => this._loadData()}>
@@ -109,24 +108,15 @@ export default class App extends Component {
               data-tip="Search by name, email, location, or admin"
             />
             <br />
-            <Link
-              to={'/volunteers/'}
-              onClick={() => this.setState({ pageNum: 1 })}
-            >
+            <Link to={'/volunteers/'} onClick={() => this.setState({pageNum: 1})}>
               Approved ({ready.length})
             </Link>
             &nbsp;-&nbsp;
-            <Link
-              to={'/volunteers/unassigned'}
-              onClick={() => this.setState({ pageNum: 1 })}
-            >
+            <Link to={'/volunteers/unassigned'} onClick={() => this.setState({pageNum: 1})}>
               Pending ({unassigned.length})
             </Link>
             &nbsp;-&nbsp;
-            <Link
-              to={'/volunteers/denied'}
-              onClick={() => this.setState({ pageNum: 1 })}
-            >
+            <Link to={'/volunteers/denied'} onClick={() => this.setState({pageNum: 1})}>
               Denied ({denied.length})
             </Link>
             <Route
@@ -157,18 +147,19 @@ export default class App extends Component {
                     type="Invited"
                     volunteers={invited}
                   />
-                  <Button onClick={async () => {
-                    let obj = await _fetch(
-                      global,
-                      '/volunteer/invite',
-                      'POST'
-                    );
-                    if (obj.token) {
-                      this.setState({ thisVolunteer: {id: 'invite:'+obj.token} });
-                    } else {
-                      notify_error({}, 'Invite failed.');
-                    }
-                  }} color="primary">
+                  <Button
+                    onClick={async () => {
+                      let obj = await _fetch(global, '/volunteer/invite', 'POST')
+                      if (obj.token) {
+                        this.setState({
+                          thisVolunteer: {id: 'invite:' + obj.token},
+                        })
+                      } else {
+                        notify_error({}, 'Invite failed.')
+                      }
+                    }}
+                    color="primary"
+                  >
                     Invite Someone
                   </Button>
                 </div>
@@ -190,57 +181,53 @@ export default class App extends Component {
               exact={true}
               path="/volunteers/denied"
               render={() => (
-                <ListVolunteers
-                  global={global}
-                  refer={this}
-                  type="Denied"
-                  volunteers={denied}
-                />
+                <ListVolunteers global={global} refer={this} type="Denied" volunteers={denied} />
               )}
             />
             <Route
               path="/volunteers/view/:id"
-              render={props => (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 100,
-                  left: 200,
-                  right: 200,
-                  backgroundColor: 'white',
-                  padding: 40
-                }}
-              >
-              <CardVolunteer
-                global={global}
-                key={props.match.params.id}
-                id={props.match.params.id}
-                edit={true}
-                refer={this}
-              />
-              </div>)}
+              render={(props) => (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 100,
+                    left: 200,
+                    right: 200,
+                    backgroundColor: 'white',
+                    padding: 40,
+                  }}
+                >
+                  <CardVolunteer
+                    global={global}
+                    key={props.match.params.id}
+                    id={props.match.params.id}
+                    edit={true}
+                    refer={this}
+                  />
+                </div>
+              )}
             />
             <DialogSaving flag={this.state.saving} />
           </div>
         </Router>
       </RootLoader>
-    );
+    )
   }
 }
 
-const ListVolunteers = props => {
-  const perPage = props.refer.state.perPage;
-  let paginate = <div />;
-  let list = [];
+const ListVolunteers = (props) => {
+  const perPage = props.refer.state.perPage
+  let paginate = <div />
+  let list = []
 
   props.volunteers.forEach((c, idx) => {
-    let tp = Math.floor(idx / perPage) + 1;
-    if (tp !== props.refer.state.pageNum) return;
-    list.push(<CardVolunteer global={global} key={c.id} volunteer={c} refer={props.refer} />);
-  });
+    let tp = Math.floor(idx / perPage) + 1
+    if (tp !== props.refer.state.pageNum) return
+    list.push(<CardVolunteer global={global} key={c.id} volunteer={c} refer={props.refer} />)
+  })
 
   paginate = (
-    <div style={{ display: 'flex' }}>
+    <div style={{display: 'flex'}}>
       <ReactPaginate
         previousLabel={'previous'}
         nextLabel={'next'}
@@ -255,22 +242,22 @@ const ListVolunteers = props => {
         activeClassName={'active'}
       />
       &nbsp;&nbsp;&nbsp;
-      <div style={{ width: 75 }}>
+      <div style={{width: 75}}>
         # Per Page{' '}
         <Select
-          value={{ value: perPage, label: perPage }}
+          value={{value: perPage, label: perPage}}
           onChange={props.refer.handlePageNumChange}
           options={[
-            { value: 5, label: 5 },
-            { value: 10, label: 10 },
-            { value: 25, label: 25 },
-            { value: 50, label: 50 },
-            { value: 100, label: 100 }
+            {value: 5, label: 5},
+            {value: 10, label: 10},
+            {value: 25, label: 25},
+            {value: 50, label: 50},
+            {value: 100, label: 100},
           ]}
         />
       </div>
     </div>
-  );
+  )
 
   return (
     <div>
@@ -281,5 +268,5 @@ const ListVolunteers = props => {
       <List component="nav">{list}</List>
       {paginate}
     </div>
-  );
-};
+  )
+}
