@@ -1,5 +1,5 @@
-const drawerWidth = 175;
-export const styles = theme => ({
+const drawerWidth = 200;
+export const styles = (theme) => ({
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
