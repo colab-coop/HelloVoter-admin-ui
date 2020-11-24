@@ -1,7 +1,4 @@
-import { CardVolunteer } from './CardVolunteer';
-import Volunteers from './Volunteers';
+import { CardVolunteer } from "./CardVolunteer";
+import Volunteers from "./Volunteers";
 
-export {
-  CardVolunteer,
-  Volunteers
-};
+export { CardVolunteer, Volunteers };
