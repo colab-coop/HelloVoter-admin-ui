@@ -24,6 +24,16 @@ const NEARBY_DIST = 50;
 export const CardVolunteerFull = (props) => (
   <div>
     <div>Has W9?: {props.volunteer.has_w9 ? "Yes" : "No"}</div>
+    <Button
+      onClick={() => props.refer._updateW9Ambassador(props.volunteer, true)}
+    >
+      Has W9
+    </Button>
+    <Button
+      onClick={() => props.refer._updateW9Ambassador(props.volunteer, false)}
+    >
+      Does Not Have W9
+    </Button>
     <div>Currently Approved: {props.volunteer.approved ? "Yes" : "No"}</div>
     <div>
       <Button
