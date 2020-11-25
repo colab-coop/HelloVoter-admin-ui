@@ -310,6 +310,19 @@ export class CardVolunteer extends Component {
     this._loadData();
   };
 
+  _updateAmbassador = async (id, data) => {
+    const { global } = this.state;
+    this.props.refer.setState({ saving: true });
+    try {
+      await _fetch(global, `/ambassadors/${id}`, "PUT", data);
+      notify_success("Profile saved.");
+    } catch (e) {
+      notify_error(e, "Error saving profile.");
+    }
+    this.props.refer.setState({ saving: false });
+    this._loadData();
+  };
+
   render() {
     const { global, volunteer } = this.state;
 

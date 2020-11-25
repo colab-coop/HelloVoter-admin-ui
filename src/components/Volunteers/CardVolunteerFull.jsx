@@ -1,10 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Button from "@material-ui/core/Button";
 
-import { fetch } from "./../common.js";
-
-import VolunteerInfo from "./VolunteerInfo";
+import VolunteerProfile from "./VolunteerProfile";
 
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -43,9 +41,7 @@ export const CardVolunteerFull = (props) => (
         Make Admin
       </Button>
     </div>
-
-    <VolunteerInfo volunteer={props.volunteer} global={props.global} reload={props.refer._loadData}/>
-
+    <VolunteerProfile volunteer={props.volunteer} refer={props.refer} />
     {props.volunteer.verification ? (
       <div>{JSON.stringify(props.volunteer.verification, null, 2)}</div>
     ) : (
