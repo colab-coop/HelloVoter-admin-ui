@@ -132,5 +132,12 @@ describe("VolunteerProfile", () => {
     buttons = profile.find(Button);
     buttons.at(0).simulate("click");
     expect(notify_error.mock.calls.length).toBe(1);
+    profile.find(ProfileField).forEach((f) => {
+      if (f.prop("field") !== "address2" && f.prop("label") !== "Phone") {
+        const inputStyle = f.find("input").prop("style");
+        expect(inputStyle).toHaveProperty("border");
+        expect(inputStyle).toHaveProperty("backgroundColor");
+      }
+    });
   });
 });

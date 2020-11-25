@@ -34,6 +34,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     <ProfileField
       editing={false}
       field="first_name"
+      invalidFields={Object {}}
       label="First Name"
       onChange={[Function]}
       type="text"
@@ -48,6 +49,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     <ProfileField
       editing={false}
       field="last_name"
+      invalidFields={Object {}}
       label="Last Name"
       onChange={[Function]}
       type="text"
@@ -62,6 +64,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     <ProfileField
       editing={false}
       field="address1"
+      invalidFields={Object {}}
       label="Address Line 1"
       onChange={[Function]}
       type="text"
@@ -76,6 +79,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     <ProfileField
       editing={false}
       field="address2"
+      invalidFields={Object {}}
       label="Address Line 2"
       onChange={[Function]}
       type="text"
@@ -90,6 +94,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     <ProfileField
       editing={false}
       field="city"
+      invalidFields={Object {}}
       label="City"
       onChange={[Function]}
       type="text"
@@ -104,6 +109,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     <ProfileField
       editing={false}
       field="state"
+      invalidFields={Object {}}
       label="State"
       onChange={[Function]}
       type="text"
@@ -118,6 +124,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     <ProfileField
       editing={false}
       field="zip"
+      invalidFields={Object {}}
       label="Zip"
       onChange={[Function]}
       type="number"
@@ -141,6 +148,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     <ProfileField
       editing={false}
       field="email"
+      invalidFields={Object {}}
       label="Email"
       onChange={[Function]}
       type="email"
@@ -155,6 +163,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     <ProfileField
       editing={false}
       field="date_of_birth"
+      invalidFields={Object {}}
       label="Date of Birth"
       onChange={[Function]}
       type="date"
@@ -328,6 +337,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     <ProfileField
       editing={true}
       field="first_name"
+      invalidFields={Object {}}
       label="First Name"
       onChange={[Function]}
       type="text"
@@ -335,7 +345,8 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     >
       <div>
         First Name
-        : 
+        :
+         
         <input
           name="first_name"
           onChange={[Function]}
@@ -352,6 +363,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     <ProfileField
       editing={true}
       field="last_name"
+      invalidFields={Object {}}
       label="Last Name"
       onChange={[Function]}
       type="text"
@@ -359,7 +371,8 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     >
       <div>
         Last Name
-        : 
+        :
+         
         <input
           name="last_name"
           onChange={[Function]}
@@ -376,6 +389,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     <ProfileField
       editing={true}
       field="address1"
+      invalidFields={Object {}}
       label="Address Line 1"
       onChange={[Function]}
       type="text"
@@ -383,7 +397,8 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     >
       <div>
         Address Line 1
-        : 
+        :
+         
         <input
           name="address1"
           onChange={[Function]}
@@ -400,6 +415,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     <ProfileField
       editing={true}
       field="address2"
+      invalidFields={Object {}}
       label="Address Line 2"
       onChange={[Function]}
       type="text"
@@ -407,7 +423,8 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     >
       <div>
         Address Line 2
-        : 
+        :
+         
         <input
           name="address2"
           onChange={[Function]}
@@ -424,6 +441,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     <ProfileField
       editing={true}
       field="city"
+      invalidFields={Object {}}
       label="City"
       onChange={[Function]}
       type="text"
@@ -431,7 +449,8 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     >
       <div>
         City
-        : 
+        :
+         
         <input
           name="city"
           onChange={[Function]}
@@ -448,6 +467,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     <ProfileField
       editing={true}
       field="state"
+      invalidFields={Object {}}
       label="State"
       onChange={[Function]}
       type="text"
@@ -455,7 +475,8 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     >
       <div>
         State
-        : 
+        :
+         
         <input
           name="state"
           onChange={[Function]}
@@ -472,6 +493,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     <ProfileField
       editing={true}
       field="zip"
+      invalidFields={Object {}}
       label="Zip"
       onChange={[Function]}
       type="number"
@@ -479,7 +501,8 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     >
       <div>
         Zip
-        : 
+        :
+         
         <input
           name="zip"
           onChange={[Function]}
@@ -505,6 +528,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     <ProfileField
       editing={true}
       field="email"
+      invalidFields={Object {}}
       label="Email"
       onChange={[Function]}
       type="email"
@@ -512,7 +536,8 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     >
       <div>
         Email
-        : 
+        :
+         
         <input
           name="email"
           onChange={[Function]}
@@ -529,6 +554,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     <ProfileField
       editing={true}
       field="date_of_birth"
+      invalidFields={Object {}}
       label="Date of Birth"
       onChange={[Function]}
       type="date"
@@ -536,7 +562,8 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
     >
       <div>
         Date of Birth
-        : 
+        :
+         
         <input
           name="date_of_birth"
           onChange={[Function]}

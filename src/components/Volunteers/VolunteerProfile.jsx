@@ -4,6 +4,20 @@ import { notify_error } from "../../common.js";
 
 const VALIDATION_ERROR_MESSAGE = "All fields are required.";
 
+const _style = {
+  profile: {
+    width: "30%",
+  },
+  field: {
+    width: "100%",
+  },
+  invalidField: {
+    width: "100%",
+    border: "1px solid red",
+    backgroundColor: "rgba(255, 0, 0, 0.2)",
+  },
+};
+
 export const ProfileField = ({
   editing,
   type,
@@ -11,12 +25,13 @@ export const ProfileField = ({
   field,
   value,
   onChange,
+  invalidFields,
 }) =>
   editing ? (
     <div>
       {label}:{" "}
       <input
-        style={{ width: "100%" }}
+        style={invalidFields[field] ? _style.invalidField : _style.field}
         name={field}
         type={type}
         onChange={onChange}
@@ -48,6 +63,7 @@ const extractFormData = (volunteer) => ({
 export default ({ volunteer, refer }) => {
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState(extractFormData(volunteer));
+  const [invalidFields, setInvalidFields] = useState({});
 
   const setVolunteerField = (evt) =>
     setFormData({
@@ -66,12 +82,19 @@ export default ({ volunteer, refer }) => {
 
   const save = async () => {
     // validate that all fields are filled (except address line 2)
-    if (
-      Object.values(formData).findIndex((val) => !val) !== -1 ||
-      Object.keys(formData.address).findIndex(
-        (key) => key !== "address2" && !formData.address[key]
-      ) !== -1
-    ) {
+    const blankFields = {};
+    Object.keys(formData).forEach((k) => {
+      if (!formData[k]) {
+        blankFields[k] = true;
+      }
+    });
+    Object.keys(formData.address).forEach((k) => {
+      if (k != "address2" && !formData.address[k]) {
+        blankFields[k] = true;
+      }
+    });
+    if (Object.keys(blankFields).length > 0) {
+      setInvalidFields(blankFields);
       notify_error(
         new Error(VALIDATION_ERROR_MESSAGE),
         VALIDATION_ERROR_MESSAGE
@@ -83,13 +106,14 @@ export default ({ volunteer, refer }) => {
 
   const cancel = () => {
     setFormData(extractFormData(volunteer));
+    setInvalidFields({});
     setEditing(false);
   };
 
   const addressData = formData.address || {};
 
   return (
-    <div style={{ width: "30%" }}>
+    <div style={_style.profile}>
       <ProfileField
         editing={editing}
         label="First Name"
@@ -97,6 +121,7 @@ export default ({ volunteer, refer }) => {
         field="first_name"
         value={formData.first_name}
         onChange={setVolunteerField}
+        invalidFields={invalidFields}
       />
       <ProfileField
         editing={editing}
@@ -105,6 +130,7 @@ export default ({ volunteer, refer }) => {
         field="last_name"
         value={formData.last_name}
         onChange={setVolunteerField}
+        invalidFields={invalidFields}
       />
       <ProfileField
         editing={editing}
@@ -113,6 +139,7 @@ export default ({ volunteer, refer }) => {
         field="address1"
         value={addressData.address1}
         onChange={setAddressField}
+        invalidFields={invalidFields}
       />
       <ProfileField
         editing={editing}
@@ -121,6 +148,7 @@ export default ({ volunteer, refer }) => {
         field="address2"
         value={addressData.address2}
         onChange={setAddressField}
+        invalidFields={invalidFields}
       />
       <ProfileField
         editing={editing}
@@ -129,6 +157,7 @@ export default ({ volunteer, refer }) => {
         field="city"
         value={addressData.city}
         onChange={setAddressField}
+        invalidFields={invalidFields}
       />
       <ProfileField
         editing={editing}
@@ -137,6 +166,7 @@ export default ({ volunteer, refer }) => {
         field="state"
         value={addressData.state}
         onChange={setAddressField}
+        invalidFields={invalidFields}
       />
       <ProfileField
         editing={editing}
@@ -145,6 +175,7 @@ export default ({ volunteer, refer }) => {
         field="zip"
         value={addressData.zip}
         onChange={setAddressField}
+        invalidFields={invalidFields}
       />
       <ProfileField editing={false} label="Phone" value={volunteer.phone} />
       <ProfileField
@@ -154,6 +185,7 @@ export default ({ volunteer, refer }) => {
         field="email"
         value={formData.email}
         onChange={setVolunteerField}
+        invalidFields={invalidFields}
       />
       <ProfileField
         editing={editing}
@@ -162,6 +194,7 @@ export default ({ volunteer, refer }) => {
         field="date_of_birth"
         value={formData.date_of_birth}
         onChange={setVolunteerField}
+        invalidFields={invalidFields}
       />
       {editing ? (
         <div>
