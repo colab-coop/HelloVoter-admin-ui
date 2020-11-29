@@ -47,7 +47,6 @@ export const ProfileField = ({
 const extractFormData = (volunteer) => ({
   first_name: volunteer.first_name,
   last_name: volunteer.last_name,
-  email: volunteer.email,
   date_of_birth: volunteer.date_of_birth,
   address: volunteer.address
     ? {
@@ -178,15 +177,7 @@ export default ({ volunteer, refer }) => {
         invalidFields={invalidFields}
       />
       <ProfileField editing={false} label="Phone" value={volunteer.phone} />
-      <ProfileField
-        editing={editing}
-        label="Email"
-        type="email"
-        field="email"
-        value={formData.email}
-        onChange={setVolunteerField}
-        invalidFields={invalidFields}
-      />
+      <ProfileField editing={false} label="Email" value={volunteer.email} />
       <ProfileField
         editing={editing}
         label="Date of Birth"
