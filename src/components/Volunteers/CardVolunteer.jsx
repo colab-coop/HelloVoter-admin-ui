@@ -295,6 +295,32 @@ export class CardVolunteer extends Component {
     this._loadData();
   };
 
+  _updatePayPalApprovedAmbassador = async (volunteer, flag) => {
+    const { global } = this.state;
+
+    this.props.refer.setState({ saving: true });
+    try {
+      await _fetch(
+        global,
+        `/ambassadors/${volunteer.id}/paypal_approved/${
+          flag ? "true" : "false"
+        }`,
+        "PUT"
+      );
+      notify_success(
+        "Ambassador PayPal Approved status has been updated successfully."
+      );
+    } catch (e) {
+      notify_error(
+        e,
+        "Ambassador PayPal Approved status has NOT been updated successfully."
+      );
+    }
+    this.props.refer.setState({ saving: false });
+
+    this._loadData();
+  };
+
   _adminizeAmbassador = async (volunteer) => {
     const { global } = this.state;
 

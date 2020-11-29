@@ -22,6 +22,23 @@ export const CardVolunteerFull = (props) => (
     >
       Does Not Have W9
     </Button>
+    <div>
+      PayPal Approved?: {props.volunteer.paypal_approved ? "Yes" : "No"}
+    </div>
+    <Button
+      onClick={() =>
+        props.refer._updatePayPalApprovedAmbassador(props.volunteer, true)
+      }
+    >
+      PayPal Approved
+    </Button>
+    <Button
+      onClick={() =>
+        props.refer._updatePayPalApprovedAmbassador(props.volunteer, false)
+      }
+    >
+      Not PayPal Approved
+    </Button>
     <div>Currently Approved: {props.volunteer.approved ? "Yes" : "No"}</div>
     <div>
       <Button
