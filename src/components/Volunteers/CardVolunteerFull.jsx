@@ -3,7 +3,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 
 import VolunteerProfile from "./VolunteerProfile";
-
+import VolunteerTriplerInteraction from "./VolunteerTriplerInteraction";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 
@@ -76,5 +76,9 @@ export const CardVolunteerFull = (props) => (
       <div>no quiz results</div>
     )}
     <br />
+    <VolunteerTriplerInteraction
+      volunteer={props.volunteer}
+      refer={props.refer}
+    />
   </div>
 );
