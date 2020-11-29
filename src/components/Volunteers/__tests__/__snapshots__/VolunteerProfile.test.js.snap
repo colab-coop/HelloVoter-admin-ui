@@ -16,7 +16,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
         "state": "GA",
         "zip": "00000",
       },
-      "date_of_birth": 18000000,
+      "date_of_birth": 21600000,
       "email": "foo@bar.baz",
       "first_name": "Foo",
       "id": 1,
@@ -147,11 +147,7 @@ exports[`VolunteerProfile should match snapshot 1`] = `
     </ProfileField>
     <ProfileField
       editing={false}
-      field="email"
-      invalidFields={Object {}}
       label="Email"
-      onChange={[Function]}
-      type="email"
       value="foo@bar.baz"
     >
       <div>
@@ -167,12 +163,12 @@ exports[`VolunteerProfile should match snapshot 1`] = `
       label="Date of Birth"
       onChange={[Function]}
       type="date"
-      value={18000000}
+      value={21600000}
     >
       <div>
         Date of Birth
         : 
-        18000000
+        21600000
       </div>
     </ProfileField>
     <div>
@@ -319,7 +315,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
         "state": "GA",
         "zip": "00000",
       },
-      "date_of_birth": 18000000,
+      "date_of_birth": 21600000,
       "email": "foo@bar.baz",
       "first_name": "Foo",
       "id": 1,
@@ -526,29 +522,14 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
       </div>
     </ProfileField>
     <ProfileField
-      editing={true}
-      field="email"
-      invalidFields={Object {}}
+      editing={false}
       label="Email"
-      onChange={[Function]}
-      type="email"
       value="foo@bar.baz"
     >
       <div>
         Email
-        :
-         
-        <input
-          name="email"
-          onChange={[Function]}
-          style={
-            Object {
-              "width": "100%",
-            }
-          }
-          type="email"
-          value="foo@bar.baz"
-        />
+        : 
+        foo@bar.baz
       </div>
     </ProfileField>
     <ProfileField
@@ -558,7 +539,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
       label="Date of Birth"
       onChange={[Function]}
       type="date"
-      value={18000000}
+      value={21600000}
     >
       <div>
         Date of Birth
@@ -573,7 +554,7 @@ exports[`VolunteerProfile should match snapshot of editing state 1`] = `
             }
           }
           type="date"
-          value={18000000}
+          value={21600000}
         />
       </div>
     </ProfileField>

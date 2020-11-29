@@ -25,7 +25,6 @@ const VOLUNTEER = {
 const VOLUNTEER_UPDATE = {
   first_name: "Updated",
   last_name: "Volunteer",
-  email: "updated@volunte.er",
   date_of_birth: Date.parse("01-02-1970"),
   address: {
     address1: "123 Test Rd",
@@ -34,6 +33,8 @@ const VOLUNTEER_UPDATE = {
     zip: "00001",
   },
 };
+
+const READ_ONLY_FIELDS = ["Phone", "Email"];
 
 describe("VolunteerProfile", () => {
   it("should match snapshot", () => {
@@ -66,7 +67,7 @@ describe("VolunteerProfile", () => {
     expect(buttons.text()).toBe("Edit Profile");
     buttons.simulate("click");
     profile.find(ProfileField).forEach((f) => {
-      if (f.prop("label") !== "Phone") {
+      if (!READ_ONLY_FIELDS.includes(f.prop("label"))) {
         expect(f.prop("editing")).toBeTruthy();
         expect(f.find("input").length).toBe(1);
       }
@@ -102,7 +103,7 @@ describe("VolunteerProfile", () => {
     let buttons = profile.find(Button);
     buttons.simulate("click");
     profile.find(ProfileField).forEach((f) => {
-      if (f.prop("label") !== "Phone") {
+      if (!READ_ONLY_FIELDS.includes(f.prop("label"))) {
         const name = f.prop("field");
         const value = VOLUNTEER_UPDATE[name] || VOLUNTEER_UPDATE.address[name];
         f.find("input").simulate("change", { target: { name, value } });
@@ -123,7 +124,7 @@ describe("VolunteerProfile", () => {
     let buttons = profile.find(Button);
     buttons.simulate("click");
     profile.find(ProfileField).forEach((f) => {
-      if (f.prop("label") !== "Phone") {
+      if (!READ_ONLY_FIELDS.includes(f.prop("label"))) {
         const name = f.prop("field");
         const value = undefined;
         f.find("input").simulate("change", { target: { name, value } });
@@ -133,7 +134,10 @@ describe("VolunteerProfile", () => {
     buttons.at(0).simulate("click");
     expect(notify_error.mock.calls.length).toBe(1);
     profile.find(ProfileField).forEach((f) => {
-      if (f.prop("field") !== "address2" && f.prop("label") !== "Phone") {
+      if (
+        f.prop("field") !== "address2" &&
+        !READ_ONLY_FIELDS.includes(f.prop("label"))
+      ) {
         const inputStyle = f.find("input").prop("style");
         expect(inputStyle).toHaveProperty("border");
         expect(inputStyle).toHaveProperty("backgroundColor");
