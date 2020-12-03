@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { notify_error } from "../../common.js";
+import { toISO8601, toMDYSlashSeparated } from "../../dateUtil.js";
 
 const VALIDATION_ERROR_MESSAGE = "All fields are required.";
 
@@ -40,14 +41,14 @@ export const ProfileField = ({
     </div>
   ) : (
     <div>
-      {label}: {value}
+      {label}: {type === "date" ? toMDYSlashSeparated(value) : value}
     </div>
   );
 
 const extractFormData = (volunteer) => ({
   first_name: volunteer.first_name,
   last_name: volunteer.last_name,
-  date_of_birth: volunteer.date_of_birth,
+  date_of_birth: toISO8601(volunteer.date_of_birth),
   address: volunteer.address
     ? {
         address1: volunteer.address.address1,
@@ -88,7 +89,7 @@ export default ({ volunteer, refer }) => {
       }
     });
     Object.keys(formData.address).forEach((k) => {
-      if (k != "address2" && !formData.address[k]) {
+      if (k !== "address2" && !formData.address[k]) {
         blankFields[k] = true;
       }
     });
@@ -100,7 +101,10 @@ export default ({ volunteer, refer }) => {
       );
       return;
     }
-    refer._updateAmbassador(volunteer.id, formData);
+    refer._updateAmbassador(volunteer.id, {
+      ...formData,
+      date_of_birth: toMDYSlashSeparated(formData.date_of_birth),
+    });
   };
 
   const cancel = () => {
