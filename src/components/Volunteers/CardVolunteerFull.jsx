@@ -39,7 +39,13 @@ export const CardVolunteerFull = (props) => (
     >
       Not PayPal Approved
     </Button>
-    <div>Currently Approved: {props.volunteer.approved ? "Yes" : "No"}</div>
+    <div>Currently Approved? {props.volunteer.approved ? "Yes" : "No"}</div>
+    <div>
+      <i>
+        Pressing Yes will set approved:true, locked:false,
+        onboarding_complete:true
+      </i>
+    </div>
     <div>
       <Button
         onClick={() => props.refer._approveAmbassador(props.volunteer, false)}
