@@ -11,6 +11,17 @@ TimeAgo.locale(en);
 
 export const CardVolunteerFull = (props) => (
   <div>
+    <div>
+      <b>HubSpot ID: </b>{" "}
+      {props.volunteer.hs_id ? props.volunteer.hs_id : "NOT SET"}
+    </div>
+    <div>
+      <b>Onboarding Completed? </b>{" "}
+      {props.volunteer.onboarding_completed ? "YES" : "NO"}
+    </div>
+    <div>
+      <b>Quiz Completed? </b> {props.volunteer.quiz_completed ? "YES" : "NO"}
+    </div>
     <div>Has W9?: {props.volunteer.has_w9 ? "Yes" : "No"}</div>
     <Button
       onClick={() => props.refer._updateW9Ambassador(props.volunteer, true)}
