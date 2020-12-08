@@ -12,7 +12,8 @@ TimeAgo.locale(en);
 export const CardVolunteerFull = (props) => (
   <div>
     <div>
-      <b>HubSpot ID:</b> {props.volunteer.hs_id}
+      <b>HubSpot ID: </b>{" "}
+      {props.volunteer.hs_id ? props.volunteer.hs_id : "NOT SET"}
     </div>
     <div>
       <b>Onboarding Completed? </b>{" "}
