@@ -210,33 +210,8 @@ export class CardTripler extends Component {
         />
         <ListItemText
           primary={`Triplees`}
-          secondary={`
-            ${
-              tripler.triplees[0]["first_name"]
-                ? tripler.triplees[0]["first_name"]
-                : ""
-            } ${
-            tripler.triplees[0]["last_name"]
-              ? tripler.triplees[0]["last_name"]
-              : ""
-          },
-            ${
-              tripler.triplees[1]["first_name"]
-                ? tripler.triplees[1]["first_name"]
-                : ""
-            } ${
-            tripler.triplees[1]["last_name"]
-              ? tripler.triplees[1]["last_name"]
-              : ""
-          },
-            ${
-              tripler.triplees[2]["first_name"]
-                ? tripler.triplees[2]["first_name"]
-                : ""
-            } ${
-            tripler.triplees[2]["last_name"]
-              ? tripler.triplees[2]["last_name"]
-              : ""
+          secondary={`${
+            tripler.triplees ? JSON.stringify(tripler.triplees) : "no triplees"
           }`}
         />
         <TriplerBadges tripler={tripler} />
