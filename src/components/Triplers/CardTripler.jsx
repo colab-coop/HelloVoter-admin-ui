@@ -213,7 +213,7 @@ export class CardTripler extends Component {
           secondary={`${
             tripler.triplees
               ? JSON.stringify(tripler.triplees[0])
-              : "no triplers"
+              : "no tripleers"
           }`}
         />
         <TriplerBadges tripler={tripler} />
