@@ -52,7 +52,7 @@ export const CardVolunteerFull = (props) => (
     </Button>
     <div>Currently Approved? {props.volunteer.approved ? "Yes" : "No"}</div>
     <div>
-      <i>Pressing Yes will set approved:true, locked:false </i>
+      <i>Pressing Approve will set approved:true, locked:false </i>
     </div>
     <div>
       <Button
@@ -73,40 +73,48 @@ export const CardVolunteerFull = (props) => (
       </Button>
     </div>
     <VolunteerProfile volunteer={props.volunteer} refer={props.refer} />
-    {props.volunteer.verification ? (
-      <div>{JSON.stringify(props.volunteer.verification, null, 2)}</div>
-    ) : (
-      <div>no phone lookup</div>
-    )}
-    <br />
-    <br />
-    {props.volunteer.quiz_results ? (
-      props.volunteer.quiz_results.map ? (
-        props.volunteer.quiz_results.map((qr) => {
-          return (
-            <div key={qr.question}>
-              <b>question:</b> {qr.question} <b>answer:</b> {qr.answer}
-              <br />
-              <br />
-            </div>
-          );
-        })
+    <div>
+      {props.volunteer.verification ? (
+        <div>{JSON.stringify(props.volunteer.verification, null, 2)}</div>
       ) : (
-        Object.keys(props.volunteer.quiz_results).map((key) => {
-          return (
-            <div key={key}>
-              <b>question:</b> {key} <b>answer:</b>{" "}
-              {props.volunteer.quiz_results[key]}
-              <br />
-              <br />
-            </div>
-          );
-        })
-      )
-    ) : (
-      <div>no quiz results</div>
-    )}
-    <br />
+        <div>no phone lookup</div>
+      )}
+    </div>
+    <div>
+      {props.volunteer.payouts ? (
+        <div>{JSON.stringify(props.volunteer.payouts, null, 2)}</div>
+      ) : (
+        <div>no payouts</div>
+      )}
+    </div>
+    <div>
+      {props.volunteer.quiz_results ? (
+        props.volunteer.quiz_results.map ? (
+          props.volunteer.quiz_results.map((qr) => {
+            return (
+              <div key={qr.question}>
+                <b>question:</b> {qr.question} <b>answer:</b> {qr.answer}
+                <br />
+                <br />
+              </div>
+            );
+          })
+        ) : (
+          Object.keys(props.volunteer.quiz_results).map((key) => {
+            return (
+              <div key={key}>
+                <b>question:</b> {key} <b>answer:</b>{" "}
+                {props.volunteer.quiz_results[key]}
+                <br />
+                <br />
+              </div>
+            );
+          })
+        )
+      ) : (
+        <div>no quiz results</div>
+      )}
+    </div>
     <VolunteerTriplerInteraction
       volunteer={props.volunteer}
       refer={props.refer}

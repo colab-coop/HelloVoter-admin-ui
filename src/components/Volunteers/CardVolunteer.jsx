@@ -365,7 +365,11 @@ export class CardVolunteer extends Component {
             </ListItemAvatar>
             <ListItemText
               primary={`${volunteer.first_name} ${volunteer.last_name || ""}`}
-              secondary={`${volunteer.address.address1} ${volunteer.address.city} ${volunteer.address.state} ${volunteer.address.zip}`}
+              secondary={`${volunteer.address.address1 || ""} ${
+                volunteer.address.city || ""
+              } ${volunteer.address.state || ""} ${
+                volunteer.address.zip || ""
+              }`}
             />
             <VolunteerBadges volunteer={volunteer} />
           </ListItem>

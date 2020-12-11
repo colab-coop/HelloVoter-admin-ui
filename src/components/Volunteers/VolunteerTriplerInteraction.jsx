@@ -53,7 +53,7 @@ const ListClaimedTriplers = (props) => {
   return (
     <div>
       <h3>
-        {props.type} Claimees ({props.triplers.length})
+        {props.type} Triplers ({props.triplers.length})
       </h3>
       <List component="nav">{list}</List>
     </div>
