@@ -52,7 +52,9 @@ export const CardVolunteerFull = (props) => (
     </Button>
     <div>Currently Approved? {props.volunteer.approved ? "Yes" : "No"}</div>
     <div>
-      <i>Pressing Approve will set approved:true, locked:false </i>
+      <i>
+        Pressing Approve will only change approval status, not locked status.
+      </i>
     </div>
     <div>
       <Button
