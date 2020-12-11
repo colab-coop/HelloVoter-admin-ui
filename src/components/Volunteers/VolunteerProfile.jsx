@@ -191,6 +191,37 @@ export default ({ volunteer, refer }) => {
         onChange={setVolunteerField}
         invalidFields={invalidFields}
       />
+      <ProfileField
+        editing={false}
+        label="quiz_completed"
+        value={volunteer.quiz_completed ? "True" : "False"}
+      />
+      <ProfileField
+        editing={false}
+        label="onboarding_completed"
+        value={volunteer.onboarding_completed ? "True" : "False"}
+      />
+      <ProfileField
+        editing={false}
+        label="giftcard_completed"
+        value={volunteer.giftcard_completed ? "True" : "False"}
+      />
+      <ProfileField
+        editing={false}
+        label="signup_completed"
+        value={volunteer.signup_completed ? "True" : "False"}
+      />
+      <ProfileField
+        editing={false}
+        label="locked"
+        value={volunteer.locked ? "True" : "False"}
+      />
+      <ProfileField
+        editing={false}
+        label="payout_provider"
+        value={volunteer.payout_provider ? "True" : "False"}
+      />
+
       {editing ? (
         <div>
           <Button onClick={save}>Save</Button>

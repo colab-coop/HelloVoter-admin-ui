@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import ReactTooltip from 'react-tooltip';
+import ReactTooltip from "react-tooltip";
 
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Avatar from '@material-ui/core/Avatar';
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Avatar from "@material-ui/core/Avatar";
 
 import {
   notify_error,
@@ -19,11 +19,11 @@ import {
   _loadTurfs,
   _loadNearbyTurfs,
   Icon,
-} from '../../common.js';
+} from "../../common.js";
 
-import { CardTurf } from '../Turf';
-import { CardForm } from '../Forms';
-import { CardTriplerFull } from './CardTriplerFull';
+import { CardTurf } from "../Turf";
+import { CardForm } from "../Forms";
+import { CardTriplerFull } from "./CardTriplerFull";
 
 import {
   faCrown,
@@ -31,20 +31,20 @@ import {
   faCheckCircle,
   faBan,
   faHome,
-  faFlag
-} from '@fortawesome/free-solid-svg-icons';
+  faFlag,
+} from "@fortawesome/free-solid-svg-icons";
 
-import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en';
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 TimeAgo.locale(en);
 
 const NEARBY_DIST = 50;
 
 function extract_addr(addr) {
-  let arr = addr.split(', ');
+  let arr = addr.split(", ");
   if (arr.length < 4) return addr;
   arr.shift();
-  return arr.join(', ');
+  return arr.join(", ");
 }
 
 export class CardTripler extends Component {
@@ -88,49 +88,57 @@ export class CardTripler extends Component {
         _loadTurfs(global),
       ]);
     } catch (e) {
-      notify_error(e, 'Unable to load tripler info.');
+      notify_error(e, "Unable to load tripler info.");
       return this.setState({ loading: false });
     }
 
     if (tripler.location) {
-      hometurf = await _loadNearbyTurfs(global, tripler.location.x, tripler.location.y, 0);
-      nearbyturf = await _loadNearbyTurfs(global, tripler.location.x, tripler.location.y, NEARBY_DIST);
+      hometurf = await _loadNearbyTurfs(
+        global,
+        tripler.location.x,
+        tripler.location.y,
+        0
+      );
+      nearbyturf = await _loadNearbyTurfs(
+        global,
+        tripler.location.x,
+        tripler.location.y,
+        NEARBY_DIST
+      );
     }
 
     let selectedFormsOption = [];
     let selectedTurfOption = [];
 
-    let formOptions = [{ value: '', label: 'None' }];
+    let formOptions = [{ value: "", label: "None" }];
 
-    let turfOptions = [
-      { value: '', label: 'None' }
-    ];
+    let turfOptions = [{ value: "", label: "None" }];
 
-    forms.forEach(f => {
+    forms.forEach((f) => {
       formOptions.push({
         value: _searchStringify(f),
         id: f.id,
-        label: <CardForm global={global} key={f.id} form={f} refer={this} />
+        label: <CardForm global={global} key={f.id} form={f} refer={this} />,
       });
     });
 
-    tripler.ass.forms.forEach(f => {
+    tripler.ass.forms.forEach((f) => {
       selectedFormsOption.push({
         value: _searchStringify(f),
         id: f.id,
-        label: <CardForm global={global} key={f.id} form={f} refer={this} />
+        label: <CardForm global={global} key={f.id} form={f} refer={this} />,
       });
     });
 
-    turf.forEach(t => {
+    turf.forEach((t) => {
       turfOptions.push({
         value: _searchStringify(t),
         id: t.id,
-        label: <CardTurf global={global} key={t.id} turf={t} refer={this} />
+        label: <CardTurf global={global} key={t.id} turf={t} refer={this} />,
       });
     });
 
-    tripler.ass.turfs.forEach(t => {
+    tripler.ass.turfs.forEach((t) => {
       selectedTurfOption.push({
         value: _searchStringify(t),
         id: t.id,
@@ -142,7 +150,7 @@ export class CardTripler extends Component {
             refer={this}
             icon={tripler.autoturf ? faHome : null}
           />
-        )
+        ),
       });
     });
 
@@ -173,10 +181,8 @@ export class CardTripler extends Component {
               <Avatar alt={tripler.first_name} src={tripler.avatar} />
             </ListItemAvatar>
             <ListItemText
-              primary={`${tripler.first_name} ${tripler.last_name || ''}`}
-              secondary={
-                `${tripler.address.address1} ${tripler.address.city} ${tripler.address.state} ${tripler.address.zip}`
-              }
+              primary={`${tripler.first_name} ${tripler.last_name || ""}`}
+              secondary={`${tripler.address.address1} ${tripler.address.city} ${tripler.address.state} ${tripler.address.zip}`}
             />
             <TriplerBadges tripler={tripler} />
           </ListItem>
@@ -188,19 +194,26 @@ export class CardTripler extends Component {
       <ListItem
         button
         style={{ width: 350 }}
-        alignItems="flex-start"
         onClick={() => {
           this.props.refer.setState({ thisTripler: tripler });
-          window.location.href = "#/triplers/view/"+tripler.id;
-        }}>
+          window.location.href = "#/triplers/view/" + tripler.id;
+        }}
+      >
         <ListItemAvatar>
           <Avatar alt={tripler.first_name} src={tripler.avatar} />
         </ListItemAvatar>
         <ListItemText
-          primary={`${tripler.first_name} ${tripler.last_name || ''}`}
-          secondary={
-                `${tripler.address.address1} ${tripler.address.city} ${tripler.address.state} ${tripler.address.zip} \n ${tripler.phone}`
-          }
+          primary={`${tripler.first_name} ${tripler.last_name || ""}`}
+          secondary={`${tripler.address.address1} ${tripler.address.city} ${tripler.address.state} ${tripler.address.zip} 
+                \n ${tripler.phone} ${tripler.status} 
+                `}
+        />
+        <ListItemText
+          primary={`Triplees`}
+          secondary={`
+            ${tripler.triplees[0]["first_name"]} ${tripler.triplees[0]["last_name"]},
+            ${tripler.triplees[1]["first_name"]} ${tripler.triplees[1]["last_name"]},
+            ${tripler.triplees[2]["first_name"]} ${tripler.triplees[2]["last_name"]} `}
         />
         <TriplerBadges tripler={tripler} />
       </ListItem>
@@ -208,7 +221,7 @@ export class CardTripler extends Component {
   }
 }
 
-const TriplerBadges = props => {
+const TriplerBadges = (props) => {
   let badges = [];
   let id = props.tripler.id;
 
