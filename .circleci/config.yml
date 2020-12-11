@@ -15,7 +15,7 @@ jobs:
             git clone git@bitbucket.org:colabcoop-ondemand/hvbp-operations.git ~/operations
       - restore_cache:
           keys:
-          - deps-{{ checksum "~/operations/ansible/admin/requirements.txt" }}
+            - deps-{{ checksum "~/operations/ansible/admin/requirements.txt" }}
       - run:
           name: Install PIP Dependencies
           command: |
@@ -52,7 +52,7 @@ jobs:
             git clone git@bitbucket.org:colabcoop-ondemand/hvbp-operations.git ~/operations
       - restore_cache:
           keys:
-          - deps-{{ checksum "~/operations/ansible/admin/requirements.txt" }}
+            - deps-{{ checksum "~/operations/ansible/admin/requirements.txt" }}
       - run:
           name: Install PIP Dependencies
           command: |
