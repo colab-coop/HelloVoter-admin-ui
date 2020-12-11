@@ -211,9 +211,7 @@ export class CardTripler extends Component {
         <ListItemText
           primary={`Triplees`}
           secondary={`${
-            tripler.triplees
-              ? JSON.stringify(tripler.triplees[0])
-              : "no tripleers"
+            tripler.triplees ? JSON.stringify(tripler.triplees) : "no triplees"
           }`}
         />
         <TriplerBadges tripler={tripler} />
