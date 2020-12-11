@@ -11,17 +11,7 @@ TimeAgo.locale(en);
 
 export const CardVolunteerFull = (props) => (
   <div>
-    <div>
-      <b>HubSpot ID: </b>{" "}
-      {props.volunteer.hs_id ? props.volunteer.hs_id : "NOT SET"}
-    </div>
-    <div>
-      <b>Onboarding Completed? </b>{" "}
-      {props.volunteer.onboarding_completed ? "YES" : "NO"}
-    </div>
-    <div>
-      <b>Quiz Completed? </b> {props.volunteer.quiz_completed ? "YES" : "NO"}
-    </div>
+    <h2>Buttons</h2>
     <div>Has W9?: {props.volunteer.has_w9 ? "Yes" : "No"}</div>
     <Button
       onClick={() => props.refer._updateW9Ambassador(props.volunteer, true)}
@@ -52,7 +42,9 @@ export const CardVolunteerFull = (props) => (
     </Button>
     <div>Currently Approved? {props.volunteer.approved ? "Yes" : "No"}</div>
     <div>
-      <i>Pressing Yes will set approved:true, locked:false </i>
+      <i>
+        Pressing Approve will only change approval status, not locked status.
+      </i>
     </div>
     <div>
       <Button
@@ -72,41 +64,54 @@ export const CardVolunteerFull = (props) => (
         Make Admin
       </Button>
     </div>
+    <h2>Profile</h2>
     <VolunteerProfile volunteer={props.volunteer} refer={props.refer} />
-    {props.volunteer.verification ? (
-      <div>{JSON.stringify(props.volunteer.verification, null, 2)}</div>
-    ) : (
-      <div>no phone lookup</div>
-    )}
-    <br />
-    <br />
-    {props.volunteer.quiz_results ? (
-      props.volunteer.quiz_results.map ? (
-        props.volunteer.quiz_results.map((qr) => {
-          return (
-            <div key={qr.question}>
-              <b>question:</b> {qr.question} <b>answer:</b> {qr.answer}
-              <br />
-              <br />
-            </div>
-          );
-        })
+    <h2>Verification</h2>
+    <div>
+      {props.volunteer.verification ? (
+        <div>{JSON.stringify(props.volunteer.verification, null, 2)}</div>
       ) : (
-        Object.keys(props.volunteer.quiz_results).map((key) => {
-          return (
-            <div key={key}>
-              <b>question:</b> {key} <b>answer:</b>{" "}
-              {props.volunteer.quiz_results[key]}
-              <br />
-              <br />
-            </div>
-          );
-        })
-      )
-    ) : (
-      <div>no quiz results</div>
-    )}
-    <br />
+        <div>no phone lookup</div>
+      )}
+    </div>
+    <h2>Payouts</h2>
+    <div>
+      {props.volunteer.payouts ? (
+        <div>{JSON.stringify(props.volunteer.payouts, null, 2)}</div>
+      ) : (
+        <div>no payouts</div>
+      )}
+    </div>
+    <h2>Quiz Results</h2>
+    <div>
+      {props.volunteer.quiz_results ? (
+        props.volunteer.quiz_results.map ? (
+          props.volunteer.quiz_results.map((qr) => {
+            return (
+              <div key={qr.question}>
+                <b>question:</b> {qr.question} <b>answer:</b> {qr.answer}
+                <br />
+                <br />
+              </div>
+            );
+          })
+        ) : (
+          Object.keys(props.volunteer.quiz_results).map((key) => {
+            return (
+              <div key={key}>
+                <b>question:</b> {key} <b>answer:</b>{" "}
+                {props.volunteer.quiz_results[key]}
+                <br />
+                <br />
+              </div>
+            );
+          })
+        )
+      ) : (
+        <div>no quiz results</div>
+      )}
+    </div>
+    <h2>Interactions</h2>
     <VolunteerTriplerInteraction
       volunteer={props.volunteer}
       refer={props.refer}
