@@ -193,6 +193,16 @@ export default ({ volunteer, refer }) => {
       />
       <ProfileField
         editing={false}
+        label="HubSpot ID"
+        value={volunteer.hs_id}
+      />
+      <ProfileField
+        editing={false}
+        label="signup_completed"
+        value={volunteer.signup_completed ? "True" : "False"}
+      />
+      <ProfileField
+        editing={false}
         label="quiz_completed"
         value={volunteer.quiz_completed ? "True" : "False"}
       />
@@ -208,20 +218,16 @@ export default ({ volunteer, refer }) => {
       />
       <ProfileField
         editing={false}
-        label="signup_completed"
-        value={volunteer.signup_completed ? "True" : "False"}
+        label="payout_provider"
+        value={
+          volunteer.payout_provider ? volunteer.payout_provider : "Not Set"
+        }
       />
       <ProfileField
         editing={false}
         label="locked"
         value={volunteer.locked ? "True" : "False"}
       />
-      <ProfileField
-        editing={false}
-        label="payout_provider"
-        value={volunteer.payout_provider ? "True" : "False"}
-      />
-
       {editing ? (
         <div>
           <Button onClick={save}>Save</Button>

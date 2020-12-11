@@ -11,17 +11,7 @@ TimeAgo.locale(en);
 
 export const CardVolunteerFull = (props) => (
   <div>
-    <div>
-      <b>HubSpot ID: </b>{" "}
-      {props.volunteer.hs_id ? props.volunteer.hs_id : "NOT SET"}
-    </div>
-    <div>
-      <b>Onboarding Completed? </b>{" "}
-      {props.volunteer.onboarding_completed ? "YES" : "NO"}
-    </div>
-    <div>
-      <b>Quiz Completed? </b> {props.volunteer.quiz_completed ? "YES" : "NO"}
-    </div>
+    <h2>Buttons</h2>
     <div>Has W9?: {props.volunteer.has_w9 ? "Yes" : "No"}</div>
     <Button
       onClick={() => props.refer._updateW9Ambassador(props.volunteer, true)}
@@ -72,7 +62,9 @@ export const CardVolunteerFull = (props) => (
         Make Admin
       </Button>
     </div>
+    <h2>Profile</h2>
     <VolunteerProfile volunteer={props.volunteer} refer={props.refer} />
+    <h2>Verification</h2>
     <div>
       {props.volunteer.verification ? (
         <div>{JSON.stringify(props.volunteer.verification, null, 2)}</div>
@@ -80,6 +72,7 @@ export const CardVolunteerFull = (props) => (
         <div>no phone lookup</div>
       )}
     </div>
+    <h2>Payouts</h2>
     <div>
       {props.volunteer.payouts ? (
         <div>{JSON.stringify(props.volunteer.payouts, null, 2)}</div>
@@ -87,6 +80,7 @@ export const CardVolunteerFull = (props) => (
         <div>no payouts</div>
       )}
     </div>
+    <h2>Quiz Results</h2>
     <div>
       {props.volunteer.quiz_results ? (
         props.volunteer.quiz_results.map ? (
@@ -115,6 +109,7 @@ export const CardVolunteerFull = (props) => (
         <div>no quiz results</div>
       )}
     </div>
+    <h2>Interactions</h2>
     <VolunteerTriplerInteraction
       volunteer={props.volunteer}
       refer={props.refer}
