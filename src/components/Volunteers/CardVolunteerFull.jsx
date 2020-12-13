@@ -23,6 +23,21 @@ export const CardVolunteerFull = (props) => (
     >
       Does Not Have W9
     </Button>
+    <div>Admin Bonus?: {props.volunteer.admin_bonus.toString()}</div>
+    <Button
+      onClick={() =>
+        props.refer._updateAmbassadorAdminBonus(props.volunteer, 10)
+      }
+    >
+      Make Bonus 10
+    </Button>
+    <Button
+      onClick={() =>
+        props.refer._updateAmbassadorAdminBonus(props.volunteer, -10)
+      }
+    >
+      Make Bonus -10
+    </Button>
     <div>
       PayPal Approved?: {props.volunteer.paypal_approved ? "Yes" : "No"}
     </div>
