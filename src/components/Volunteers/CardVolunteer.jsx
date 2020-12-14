@@ -295,6 +295,28 @@ export class CardVolunteer extends Component {
     this._loadData();
   };
 
+  _updateTriplerLimit = async (volunteer, val) => {
+    const { global } = this.state;
+
+    this.props.refer.setState({ saving: true });
+    try {
+      await _fetch(
+        global,
+        `/ambassadors/${volunteer.id}/claim_tripler_limit/${val}`,
+        "PUT"
+      );
+      notify_success("Ambassador tripler limit has been updated successfully.");
+    } catch (e) {
+      notify_error(
+        e,
+        "Ambassador tripler limit has NOT been updated successfully."
+      );
+    }
+    this.props.refer.setState({ saving: false });
+
+    this._loadData();
+  };
+
   _updatePayPalApprovedAmbassador = async (volunteer, flag) => {
     const { global } = this.state;
 
