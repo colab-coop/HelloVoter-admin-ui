@@ -75,7 +75,11 @@ export const CardVolunteerFull = (props) => {
       <div>
         Claim Tripler Limit:{" "}
         <Input
-          type="number"
+          type="text"
+          inputProps={{
+            inputMode: "numeric",
+            pattern: "[0-9]*",
+          }}
           value={
             claimTriplerLimit === undefined || claimTriplerLimit == null
               ? ""
@@ -148,6 +152,7 @@ export const CardVolunteerFull = (props) => {
       </div>
       <h2>Interactions</h2>
       <VolunteerTriplerInteraction
+        global={props.global}
         volunteer={props.volunteer}
         refer={props.refer}
       />
