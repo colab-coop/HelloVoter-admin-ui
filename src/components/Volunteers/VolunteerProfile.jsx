@@ -136,6 +136,11 @@ export default ({ volunteer, refer }) => {
         invalidFields={invalidFields}
       />
       <ProfileField
+        editing={false}
+        label="Locked"
+        value={volunteer.locked ? "True" : "False"}
+      />
+      <ProfileField
         editing={editing}
         label="Address Line 1"
         type="text"
