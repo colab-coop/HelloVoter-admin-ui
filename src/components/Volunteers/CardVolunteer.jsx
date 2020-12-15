@@ -294,6 +294,27 @@ export class CardVolunteer extends Component {
 
     this._loadData();
   };
+  _updateAmbassadorAdminBonus = async (volunteer, admin_bonus) => {
+    const { global } = this.state;
+
+    this.props.refer.setState({ saving: true });
+    try {
+      await _fetch(
+        global,
+        `/ambassadors/${volunteer.id}/admin_bonus/${admin_bonus}`,
+        "PUT"
+      );
+      notify_success("Ambassador Admin Bonus has been updated successfully.");
+    } catch (e) {
+      notify_error(
+        e,
+        "Ambassador Admin Bonus has NOT been updated successfully."
+      );
+    }
+    this.props.refer.setState({ saving: false });
+
+    this._loadData();
+  };
 
   _updateTriplerLimit = async (volunteer, val) => {
     const { global } = this.state;
