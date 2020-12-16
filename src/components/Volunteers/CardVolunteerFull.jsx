@@ -132,7 +132,7 @@ export const CardVolunteerFull = (props) => {
       <div>
         {props.volunteer.trust_factors ? (
           <div>
-            {JSON.stringify(props.volunteer.trust_factors.factors, null, 2)}
+            {JSON.stringify(props.volunteer.trust_factors?.factors, null, 2)}
           </div>
         ) : (
           <div>no trust factors</div>
@@ -140,9 +140,9 @@ export const CardVolunteerFull = (props) => {
       </div>
       <h3>Weights</h3>
       <div>
-        {props.volunteer.trust_factors.weights ? (
+        {props.volunteer.trust_factors?.weights ? (
           <div>
-            {JSON.stringify(props.volunteer.trust_factors.weights, null, 2)}
+            {JSON.stringify(props.volunteer.trust_factors?.weights, null, 2)}
           </div>
         ) : (
           <div>no trust factors</div>
@@ -150,9 +150,9 @@ export const CardVolunteerFull = (props) => {
       </div>
       <h3>Trust</h3>
       <div>
-        {props.volunteer.trust_factors.trust ? (
+        {props.volunteer.trust_factors?.trust ? (
           <div>
-            {JSON.stringify(props.volunteer.trust_factors.trust, null, 2)}
+            {JSON.stringify(props.volunteer.trust_factors?.trust, null, 2)}
           </div>
         ) : (
           <div>no trust factors</div>

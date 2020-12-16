@@ -199,7 +199,7 @@ export default ({ volunteer, refer }) => {
       <ProfileField
         editing={false}
         label="HubSpot ID"
-        value={volunteer.hs_id.toString()}
+        value={volunteer.hs_id?.toString()}
       />
       <ProfileField
         editing={false}
