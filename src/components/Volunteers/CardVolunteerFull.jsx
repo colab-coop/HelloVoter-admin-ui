@@ -203,6 +203,10 @@ export const CardVolunteerFull = (props) => {
           <div>no quiz results</div>
         )}
       </div>
+      <h2>Ekata Explanation</h2>
+      <div>
+        <p>{props.volunteer.ekata_report + " "}</p>
+      </div>
       <h2>Interactions</h2>
       <VolunteerTriplerInteraction
         global={props.global}
