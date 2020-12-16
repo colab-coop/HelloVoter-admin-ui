@@ -15,6 +15,7 @@ export const CardVolunteerFull = (props) => {
   const [claimTriplerLimit, setClaimTriplerLimit] = useState(
     props.volunteer.claim_tripler_limit
   );
+  const [adminBonus, setAdminBonus] = useState(props.volunteer.admin_bonus);
   return (
     <div>
       <h2>Buttons</h2>
@@ -95,6 +96,27 @@ export const CardVolunteerFull = (props) => {
           Update
         </Button>
       </div>
+      <div>
+        Admin Bonus:{" "}
+        <Input
+          type="text"
+          inputProps={{
+            inputMode: "numeric",
+            pattern: "[0-9]*",
+          }}
+          value={
+            adminBonus === undefined || setAdminBonus == null ? "" : adminBonus
+          }
+          onChange={(evt) => setAdminBonus(evt.target.value)}
+        />
+        <Button
+          onClick={() =>
+            props.refer._updateAmbassadorAdminBonus(props.volunteer, adminBonus)
+          }
+        >
+          Update
+        </Button>
+      </div>
       <h2>Profile</h2>
       <VolunteerProfile volunteer={props.volunteer} refer={props.refer} />
       <h2>Verification</h2>
@@ -103,6 +125,37 @@ export const CardVolunteerFull = (props) => {
           <div>{JSON.stringify(props.volunteer.verification, null, 2)}</div>
         ) : (
           <div>no phone lookup</div>
+        )}
+      </div>
+      <h2>Trust Factors</h2>
+      <h3>Factors</h3>
+      <div>
+        {props.volunteer.trust_factors ? (
+          <div>
+            {JSON.stringify(props.volunteer.trust_factors?.factors, null, 2)}
+          </div>
+        ) : (
+          <div>no trust factors</div>
+        )}
+      </div>
+      <h3>Weights</h3>
+      <div>
+        {props.volunteer.trust_factors?.weights ? (
+          <div>
+            {JSON.stringify(props.volunteer.trust_factors?.weights, null, 2)}
+          </div>
+        ) : (
+          <div>no trust factors</div>
+        )}
+      </div>
+      <h3>Trust</h3>
+      <div>
+        {props.volunteer.trust_factors?.trust ? (
+          <div>
+            {JSON.stringify(props.volunteer.trust_factors?.trust, null, 2)}
+          </div>
+        ) : (
+          <div>no trust factors</div>
         )}
       </div>
       <h2>Accounts</h2>
@@ -149,6 +202,10 @@ export const CardVolunteerFull = (props) => {
         ) : (
           <div>no quiz results</div>
         )}
+      </div>
+      <h2>Ekata Explanation</h2>
+      <div>
+        <p>{props.volunteer.ekata_report + " "}</p>
       </div>
       <h2>Interactions</h2>
       <VolunteerTriplerInteraction

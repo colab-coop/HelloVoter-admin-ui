@@ -136,6 +136,11 @@ export default ({ volunteer, refer }) => {
         invalidFields={invalidFields}
       />
       <ProfileField
+        editing={false}
+        label="Locked"
+        value={volunteer.locked ? "True" : "False"}
+      />
+      <ProfileField
         editing={editing}
         label="Address Line 1"
         type="text"
@@ -194,7 +199,7 @@ export default ({ volunteer, refer }) => {
       <ProfileField
         editing={false}
         label="HubSpot ID"
-        value={volunteer.hs_id}
+        value={volunteer.hs_id?.toString()}
       />
       <ProfileField
         editing={false}

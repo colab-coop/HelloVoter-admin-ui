@@ -59,17 +59,6 @@ const MenuItems = ({ assignments, handleClickLogout, experimental }) => (
     </List>
     <Divider />
     <List>
-      <Link to={"/csvs/"}>
-        <ListItem button>
-          <ListItemIcon>
-            <TableChartIcon />
-          </ListItemIcon>
-          <ListItemText primary="CSVs" />
-        </ListItem>
-      </Link>
-    </List>
-    <Divider />
-    <List>
       <ListItem button onClick={handleClickLogout}>
         <ListItemIcon>
           <IndeterminateCheckBoxIcon />
