@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
-import NumberFormat from 'react-number-format';
-import filesize from 'filesize';
+import React, { Component } from "react";
+import NumberFormat from "react-number-format";
+import Button from "@material-ui/core/Button";
+import filesize from "filesize";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import PersonIcon from "@material-ui/icons/Person";
+import PeopleIcon from "@material-ui/icons/People";
+import DescriptionIcon from "@material-ui/icons/Description";
+import HowToVoteIcon from "@material-ui/icons/HowToVote";
 
-import Modal from '@material-ui/core/Modal';
+import Modal from "@material-ui/core/Modal";
 
 import {
   faUser,
@@ -12,29 +18,30 @@ import {
   faChartPie,
   faMapMarkerAlt,
   faDatabase,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 
-import { arrayMove } from 'react-sortable-hoc';
+import { arrayMove } from "react-sortable-hoc";
 
 import {
   _fetch,
   notify_error,
   RootLoader,
   InviteSomeone,
-} from '../../common.js';
+} from "../../common.js";
 
-import { Cards } from './Cards';
+import { Cards } from "./Cards";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
-    const dash = (localStorage.getItem('dash') || 'vol,turf,form,attributes,addr,dbsz').split(',');
+    const dash = "ambassadors,triplers,triplees,voting_plans,voted".split(",");
 
     this.state = {
       global: props.global,
       loading: true,
       noAdmins: false,
+      triplerCount: 10,
       data: {},
       cards: [],
       dash,
@@ -47,39 +54,69 @@ export default class App extends Component {
 
   onSortEnd = ({ oldIndex, newIndex }) => {
     const dash = arrayMove(this.state.dash, oldIndex, newIndex);
-    localStorage.setItem('dash', dash.map(n => n));
+    localStorage.setItem(
+      "dash",
+      dash.map((n) => n)
+    );
     this.setState(() => ({
       dash,
     }));
-  }
+  };
 
   _loadData = async () => {
     const { global } = this.state;
 
     let data = {};
-    let cards = [];
+    let cards = {};
 
     this.setState({ loading: true });
 
-    /*
     try {
-      data = await _fetch(global, '/dashboard');
-
-      if (data.admins === 0) this.setState({noAdmins: true});
+      data = await _fetch(global, "/shared/stats");
 
       cards = {
-        vol: {
-          name: 'Ambassadors',
-          stat: data.volunteers,
-          icon: faUser,
+        ambassadors: {
+          name: "Ambassadors",
+          stat: data.ambassadors,
+          icon: <VerifiedUserIcon fontSize="large" />,
         },
-     };
+        triplers: {
+          name: "Triplers",
+          stat: data.triplers,
+          icon: <PersonIcon fontSize="large" />,
+        },
+        triplees: {
+          name: "Triplees",
+          stat: data.triplees,
+          icon: <PeopleIcon fontSize="large" />,
+        },
+        voting_plans: {
+          name: "Voting Plans",
+          stat: data.voting_plans,
+          icon: <DescriptionIcon fontSize="large" />,
+        },
+        voted: {
+          name: "Voted",
+          stat: {
+            ambassadors: data.ambassadors.voted || 0,
+            triplers: data.triplers.voted || 0,
+            triplees: data.triplees.voted || 0,
+          },
+          icon: <HowToVoteIcon fontSize="large" />,
+        },
+      };
     } catch (e) {
-      notify_error(e, 'Unable to load dashboard info.');
+      notify_error(e, "Unable to load dashboard info.");
     }
-    */
 
     this.setState({ cards, data, loading: false });
+  };
+
+  async createTripleeNodes(count) {
+    const { global } = this.state;
+    this.setState({ loading: true });
+    await _fetch(global, "/triplers/create_triplees", "POST", { count });
+    this._loadData();
   }
 
   render() {
@@ -87,9 +124,11 @@ export default class App extends Component {
 
     return (
       <RootLoader flag={loading} func={this._loadData}>
-        {(data.version && data.version !== process.env.REACT_APP_VERSION)&&
-        <h3 style={{color: "red"}}>WARNING: API version doesn't match HQ version.</h3>
-        }
+        {data.version && data.version !== process.env.REACT_APP_VERSION && (
+          <h3 style={{ color: "red" }}>
+            WARNING: API version doesn't match HQ version.
+          </h3>
+        )}
         <Cards
           state={this.state}
           axis="xy"
@@ -98,7 +137,21 @@ export default class App extends Component {
           dash={this.state.dash}
         />
 
-        <InviteSomeone refer={this} />
+        <input
+          size={5}
+          value={this.state.triplerCount}
+          onChange={(e) =>
+            this.setState({ triplerCount: +e.target.value || 0 })
+          }
+        />
+
+        <Button
+          onClick={() => this.createTripleeNodes(this.state.triplerCount)}
+        >
+          Fill in missing Triplee nodes
+        </Button>
+
+        {false && <InviteSomeone refer={this} />}
 
         <Modal
           aria-labelledby="simple-modal-title"
@@ -108,17 +161,17 @@ export default class App extends Component {
         >
           <div
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: 100,
               left: 200,
               right: 200,
-              backgroundColor: 'white',
-              padding: 40
+              backgroundColor: "white",
+              padding: 40,
             }}
           >
-            Welcome! Looks like you're new here. By default, users have zero permissions
-            when they sign in. To make yourself an admin and gain full access to the UI,
-            run the follow command from the shell:
+            Welcome! Looks like you're new here. By default, users have zero
+            permissions when they sign in. To make yourself an admin and gain
+            full access to the UI, run the follow command from the shell:
             <br />
             <br />
             <pre>npm run makeadmin -- {global.getUserProp("id")}</pre>

@@ -1,14 +1,14 @@
-import React from 'react';
-import { sortableContainer } from 'react-sortable-hoc';
-import { CardDashboard } from './CardDashboard';
+import React from "react";
+import { sortableContainer } from "react-sortable-hoc";
+import { CardDashboard } from "./CardDashboard";
 
-import './Dashboard.css';
+import "./Dashboard.css";
 
-const _Cards = props => {
+const _Cards = (props) => {
   return (
     <div className="dashboard-container">
-      {props.dash.map((item, index) => {
-        const card = props.cards[item] || {};
+      {props.dash.map((key, index) => {
+        const card = props.cards[key] || {};
         return (
           <CardDashboard
             key={card.name}
