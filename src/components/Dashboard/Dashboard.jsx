@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import NumberFormat from "react-number-format";
 import Button from "@material-ui/core/Button";
 import filesize from "filesize";
-import DashboardIcon from "@material-ui/icons/Dashboard";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import PersonIcon from "@material-ui/icons/Person";
 import PeopleIcon from "@material-ui/icons/People";

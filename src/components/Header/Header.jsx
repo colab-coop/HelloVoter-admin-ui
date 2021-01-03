@@ -32,7 +32,7 @@ export default class Header extends Component {
     }
 
     this.setState({
-      orgname: data.orgname ? data.orgname : "unknown org",
+      orgname: data.orgname ? data.orgname : "HelloVoter",
     });
   };
 
@@ -65,8 +65,7 @@ export default class Header extends Component {
             className={classes.title}
           >
             <div style={{ margin: 10 }}>
-              Voting Ambassador{" "}
-              {orgname ? orgname : <CircularProgress height={15} />}{" "}
+              {orgname ? orgname : <CircularProgress height={15} />} Admin Panel
             </div>
           </Typography>
           <Avatar

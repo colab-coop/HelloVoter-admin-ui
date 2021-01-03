@@ -5,7 +5,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import DashboardIcon from "@material-ui/icons/Dashboard";
+import HomeIcon from "@material-ui/icons/Home";
 import MapIcon from "@material-ui/icons/Map";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import AspectRatioIcon from "@material-ui/icons/AspectRatio";
@@ -31,7 +31,7 @@ const MenuItems = ({ assignments, handleClickLogout, experimental }) => (
       <Link to={"/"}>
         <ListItem button>
           <ListItemIcon>
-            <DashboardIcon />
+            <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
