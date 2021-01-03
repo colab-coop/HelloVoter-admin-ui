@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NumberFormat from "react-number-format";
+import Button from "@material-ui/core/Button";
 import filesize from "filesize";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
@@ -41,6 +42,7 @@ export default class App extends Component {
       global: props.global,
       loading: true,
       noAdmins: false,
+      triplerCount: 10,
       data: {},
       cards: [],
       dash,
@@ -111,6 +113,13 @@ export default class App extends Component {
     this.setState({ cards, data, loading: false });
   };
 
+  async createTripleeNodes(count) {
+    const { global } = this.state;
+    this.setState({ loading: true });
+    await _fetch(global, "/triplers/create_triplees", "POST", { count });
+    this._loadData();
+  }
+
   render() {
     const { global, data, loading, noAdmins } = this.state;
 
@@ -128,6 +137,20 @@ export default class App extends Component {
           cards={this.state.cards}
           dash={this.state.dash}
         />
+
+        <input
+          size={5}
+          value={this.state.triplerCount}
+          onChange={(e) =>
+            this.setState({ triplerCount: +e.target.value || 0 })
+          }
+        />
+
+        <Button
+          onClick={() => this.createTripleeNodes(this.state.triplerCount)}
+        >
+          Fill in missing Triplee nodes
+        </Button>
 
         {false && <InviteSomeone refer={this} />}
 

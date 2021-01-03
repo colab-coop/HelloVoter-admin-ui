@@ -28,6 +28,17 @@ import HelpIcon from "@material-ui/icons/Help";
 const MenuItems = ({ assignments, handleClickLogout, experimental }) => (
   <Fragment>
     <List>
+      <Link to={"/"}>
+        <ListItem button>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+      </Link>
+    </List>
+    <Divider />
+    <List>
       <Link to={"/volunteers"}>
         <ListItem button>
           <ListItemIcon>
