@@ -14,6 +14,7 @@ const _Cards = (props) => {
             key={card.name}
             name={card.name}
             stat={card.stat}
+            content={card.content}
             icon={card.icon}
             index={index}
           />

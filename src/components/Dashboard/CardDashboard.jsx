@@ -19,15 +19,16 @@ const _CardDashboard = (props) => (
     </div>
     <div style={{ flex: 1, overflow: "auto" }}>
       <h3>{props.name}</h3>
-      {typeof props.stat === "object"
-        ? Object.keys(props.stat)
-            .sort()
-            .map((key) => (
-              <div>
-                {key}: {props.stat[key]}
-              </div>
-            ))
-        : "" + props.stat}
+      {props.content}
+      {props.stat &&
+        typeof props.stat === "object" &&
+        Object.keys(props.stat)
+          .sort()
+          .map((key) => (
+            <div>
+              {key}: {props.stat[key]}
+            </div>
+          ))}
     </div>
   </div>
 );

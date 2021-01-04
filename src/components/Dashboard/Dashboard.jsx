@@ -77,17 +77,52 @@ export default class App extends Component {
       cards = {
         ambassadors: {
           name: "Ambassadors",
-          stat: data.ambassadors,
+          content: (
+            <>
+              <div>
+                Potential: {data.ambassadors.all} ({data.ambassadors.all_voted}{" "}
+                voted)
+              </div>
+              <div>
+                Registered: {data.ambassadors.signup_completed} (
+                {data.ambassadors.signup_completed_voted} voted)
+              </div>
+              <div>
+                Onboarded: {data.ambassadors.onboarding_completed} (
+                {data.ambassadors.onboarding_completed_voted} voted)
+              </div>
+            </>
+          ),
           icon: <VerifiedUserIcon fontSize="large" />,
         },
         triplers: {
           name: "Triplers",
-          stat: data.triplers,
+          content: (
+            <>
+              <div>
+                Potential: {data.triplers.all} ({data.triplers.all_voted} voted)
+              </div>
+              <div>
+                Pending: {data.triplers.pending} ({data.triplers.pending_voted}{" "}
+                voted)
+              </div>
+              <div>
+                Confirmed: {data.triplers.confirmed} (
+                {data.triplers.confirmed_voted} voted)
+              </div>
+            </>
+          ),
           icon: <PersonIcon fontSize="large" />,
         },
         triplees: {
           name: "Triplees",
-          stat: data.triplees,
+          content: (
+            <>
+              <div>
+                All: {data.triplees.all} ({data.triplees.all_voted} voted)
+              </div>
+            </>
+          ),
           icon: <PeopleIcon fontSize="large" />,
         },
         voting_plans: {
@@ -97,11 +132,22 @@ export default class App extends Component {
         },
         voted: {
           name: "Voted",
-          stat: {
-            ambassadors: data.ambassadors.voted || 0,
-            triplers: data.triplers.voted || 0,
-            triplees: data.triplees.voted || 0,
-          },
+          content: (
+            <>
+              <div>
+                Registered Ambassadors:{" "}
+                {data.ambassadors.signup_completed_voted}
+              </div>
+              <div>Confirmed Triplers: {data.triplers.confirmed_voted}</div>
+              <div>Triplees: {data.triplees.all_voted}</div>
+              <div>
+                TOTAL:{" "}
+                {data.ambassadors.signup_completed_voted +
+                  data.triplers.confirmed_voted +
+                  data.triplees.all_voted}
+              </div>
+            </>
+          ),
           icon: <HowToVoteIcon fontSize="large" />,
         },
       };
